@@ -13,17 +13,22 @@
 }
 
 
-
-
-
 /* Reseteo General */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    overflow-x: hidden; 
+}
 
-
-
-
+img {
+    max-width: 100%;
+    height: auto;
+}
 
 /* Header */
 header { padding: 40px 60px; 
@@ -37,10 +42,6 @@ header { padding: 40px 60px;
 }
 
 
-
-
-
-
 /* Landing Page (Hero) */
 .hero-container { padding: 0 40px 40px 40px; }
 .hero-card {
@@ -51,14 +52,16 @@ header { padding: 40px 60px;
     align-items: center;
     padding-left: 80px;
 }
+
 .text-block {
     display: table;
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
     font-weight: 900;
     padding: 5px 20px;
     margin-bottom: 8px;
     color: var(--blanco)
 }
+
 .black { background: black; color: white; }
 .yellow { background: var(--amarillo-acento); color: black; }
 .white { background: white; color: var(--blanco); }
@@ -72,10 +75,6 @@ header { padding: 40px 60px;
     border-radius: 8px;
     font-size: 14px;
 }
-
-
-
-
 
 
 /* --- Sección Sobre Nosotros --- */
@@ -111,7 +110,7 @@ header { padding: 40px 60px;
 
 /* El bloque activo tiene la línea azul de tu paleta */
 .section-block.active {
-    border-left: 4px solid var(--azul-vibrante); /* #4F9DF2 según tu imagen */
+    border-left: 4px solid var(--azul-vibrante);
 }
 
 /* Títulos de las etiquetas */
@@ -130,26 +129,23 @@ header { padding: 40px 60px;
 
 /* Estilo del párrafo */
 .about-text p {
-    color: #888; /* Gris suave como en la referencia */
+    color: #888; 
     line-height: 1.6;
     font-size: 1.05rem;
     max-width: 450px;
 }
 
 
-
-
-
 /* --- Carrusel de Proyectos --- */
 .projects-section { 
     padding: 80px 40px; 
     position: relative; 
-    background-color: var(--gris-fondo); /* Fondo suave para resaltar tarjetas */
+    background-color: var(--gris-fondo); 
     overflow: hidden;
 }
 
 .carousel-container { 
-    min-height: 550px; /* Altura mínima fija para evitar saltos entre tarjetas */
+    min-height: 550px; 
     position: relative; 
     display: flex;
     justify-content: center;
@@ -162,6 +158,48 @@ header { padding: 40px 60px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 1100px;
+}
+
+@media (min-width: 769px) {
+
+    .card-prisma .project-content {
+        display: grid !important; 
+        grid-template-columns: 1fr 1.5fr !important;
+        gap: 50px !important;
+        align-items: center !important; 
+    }
+
+    .card-prisma .project-info {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important; 
+        text-align: left !important;
+    }
+
+    .card-prisma .project-info h3,
+    .card-prisma .project-info p {
+         color: var(--blanco) !important;
+         margin: 0 !important;
+         text-align: left !important;
+    }
+
+    .card-prisma .project-info h3 {
+         font-size: 3rem !important;
+         line-height: 1.1 !important;
+    }
+
+    .card-prisma .project-info p {
+        max-width: 300px !important;
+    }
+    
+    .card-prisma .project-content img {
+        height: 550px !important; 
+        width: 100% !important;
+        object-fit: cover !important;
+        margin-right: -40px;
+        border-top-right-radius: 20px; 
+        border-bottom-right-radius: 20px;
+    }
 }
 
 /* Animación de entrada: Suave y hacia arriba */
@@ -182,36 +220,52 @@ header { padding: 40px 60px;
 }
 
 .project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.project-info {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 40px;
-    align-items: center;
-}
-
-/* Control total del tamaño de la imagen */
-.project-content img {
+    grid-template-columns: 1fr 2fr; 
+    gap: 40px; 
+    align-items: start; 
     width: 100%;
-    height: 380px;      /* Altura idéntica para todas las fotos */
-    object-fit: cover;  /* Recorta la imagen para llenar el espacio sin estirarse */
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.project-info h3 { 
+.project-info h3 {
     font-weight: bold;
-    font-size: 2.5rem; 
-    margin-bottom: 20px; 
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    margin: 0;
+    text-align: left;
+    color: var(--negro);
 }
 
 .project-info p {
+    font-size: 1rem;
     line-height: 1.6;
-    font-size: 1.1rem;
+    color: #888; 
+    margin: 0;
+    text-align: left;
+}
+
+.project-content img {
+    width: 100%;
+    height: 350px; 
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 /* Colores de Tarjetas */
 .card-white { background-color: var(--blanco); color: var(--negro); }
 .card-garden { background-color: var(--verde-garden); color: var(--verde-petroleo); }
 .card-prisma { background-color: var(--morado-prisma); color: var(--blanco); }
+
+.card-prisma .project-info h3,
+.card-prisma .project-info p {
+    color: var(--blanco) !important;
+}
 
 /* --- Controles Dinámicos --- */
 .carousel-controls { 
@@ -240,25 +294,40 @@ header { padding: 40px 60px;
 }
 
 
-
-
-
-
-
 /* Contáctanos */
-.contact { padding: 80px; }
+.contact { 
+    padding: 80px; 
+}
+
 .contact-card-dark {
-    background: #2c5d5d; border-radius: 25px; display: grid; grid-template-columns: 1fr 1.2fr;
-    padding: 50px; gap: 50px; color: white;
+    background: #2c5d5d; 
+    border-radius: 25px; 
+    display: grid; 
+    grid-template-columns: 1fr 1.2fr;
+    padding: 50px; 
+    gap: 50px; 
+    color: white;
 }
-.contact-form { background: white; padding: 30px; border-radius: 15px; }
+
+.contact-form { 
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+}
+
 .contact-form input, .contact-form select, .contact-form textarea {
-    width: 100%; margin-bottom: 15px; padding: 12px; border: none; border-bottom: 1px solid #ddd;
+    width: 100%; 
+    margin-bottom: 15px; 
+    padding: 12px; 
+    border: none; 
+    border-bottom: 1px solid #ddd;
 }
-.contact-info h2 { font-size: 2.5rem; margin-bottom: 25px; line-height: 1.2; }
 
-
-
+.contact-info h2 { 
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 25px; 
+    line-height: 1.2; 
+}
 
 
 
@@ -289,10 +358,6 @@ header { padding: 40px 60px;
     align-items: center;
     gap: 20px; /* Evita que los logos se peguen entre sí */
 }
-
-
-
-
 
 
 /* Footer Negro */
@@ -348,4 +413,79 @@ header { padding: 40px 60px;
 
 .footer-socials a:hover img {
     opacity: 0.8; /* Efecto visual simple al pasar el mouse */
+}
+
+
+/*  Ajuste para celulares */
+@media (max-width: 768px) {
+
+    header {
+        padding: 20px; 
+        justify-content: center;
+    }
+
+   
+    .hero-container { padding: 0 15px 20px 15px; }
+    
+    .hero-card {
+        padding-left: 20px; 
+        justify-content: center; 
+        height: 400px; 
+    }
+
+    .about { padding: 60px 20px; }
+    
+    .about-container {
+        grid-template-columns: 1fr; 
+        gap: 40px;
+    }
+    
+    .about-image img { width: 100%; }
+
+    .projects-section { padding: 40px 20px; }
+    
+    .project-card { padding: 20px; }
+
+    .project-content {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        text-align: left; 
+    }
+    
+    .project-content img {
+        height: 250px; 
+        width: 100%;
+    }
+
+    .contact { padding: 40px 20px; }
+    
+    .contact-card-dark {
+        grid-template-columns: 1fr;
+        padding: 30px;
+        gap: 30px;
+    }
+    
+        .partners-bar {
+        display: flex;
+        flex-direction: row; 
+        flex-wrap: nowrap;   
+        justify-content: space-between; 
+        align-items: center;
+        
+        gap: 5px;          
+        padding: 20px 10px;
+        overflow: hidden;   
+    }
+
+    .partners-bar img {
+        width: 14%;       
+        height: auto;   
+        object-fit: contain;
+    }
+
+    .footer-container {
+        flex-direction: column; 
+        gap: 20px;
+        text-align: center;
+    }
 }
