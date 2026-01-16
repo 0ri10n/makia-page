@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKIA - Inmobiliaria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logo.png" alt="Logo MAKIA">
+    </div>
+</header>
+
+    <section class="hero-container">
+        <div class="hero-card">
+            <div class="hero-overlay-text">
+                <div class="text-block black">DONDE</div>
+                <div class="text-block">CRECEN</div>
+                <div class="text-block yellow">GRANDES</div>
+                <div class="text-block">IDEAS.</div>
+                <p class="hero-subtitle">Soluciones inmobiliarias a medida</p>
+                <a href="#conocenos" class="btn-hero">Conócenos</a>
+            </div>
+        </div>
+    </section>
+
+    
+<section id="conocenos" class="about">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="aboutuspage2.jpg" alt="Edificio Makia">
+        </div>
+        <div class="about-text">
+            <div class="section-block active">
+                <div class="section-label">Sobre nosotros</div>
+                <p>MAKIA es una inmobiliaria enfocada en el desarrollo y gestión de proyectos residenciales y comerciales. Nos caracterizamos por crear propuestas bien planeadas, funcionales y orientadas a generar valor a largo plazo.</p>
+            </div>
+            
+            <div class="section-block">
+                <div class="section-label small">Misión</div>
+            </div>
+            <div class="section-block">
+                <div class="section-label small">Visión</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="carousel-container">
+        <div class="project-card active card-white">
+            <div class="project-content">
+                <div class="project-info">
+                    <h3>Torre Zenith</h3>
+                    <p>Arquitectura orgánica que desafía la gravedad. Su diseño giratorio permite balcones continuos y vistas panorámicas de 360° en cada nivel...</p>
+                </div>
+                <img src="torre_zenith.jpg" alt="Torre Zenith">
+            </div>
+        </div>
+
+        <div class="project-card card-garden">
+            <div class="project-content">
+                <div class="project-info">
+                    <h3>Garden Santa Fe</h3>
+                    <p>Arriba, un pulmón verde para la ciudad. Abajo, un exclusivo hub comercial...</p>
+                </div>
+                <img src="garden_santa_fe.jpg" alt="Garden Santa Fe">
+            </div>
+        </div>
+
+        <div class="project-card card-prisma">
+            <div class="project-content">
+                <div class="project-info">
+                    <h3>Distrito Prisma</h3>
+                    <p>Olvida lo convencional. Lofts de diseño deconstructivista donde cada ángulo es único...</p>
+                </div>
+                <img src="distrito_prisma.jpg" alt="Distrito Prisma">
+            </div>
+        </div>
+    </div>
+    
+    <div class="carousel-controls">
+        <button class="prev-btn">❮</button>
+        <button class="next-btn">❯</button>
+    </div>
+</section>
+
+    <section class="contact">
+        <div class="contact-card-dark">
+            <div class="contact-form">
+                <input type="text" placeholder="Nombre completo">
+                <input type="email" placeholder="Correo electrónico">
+                <input type="tel" placeholder="Teléfono">
+                <select><option>Proyecto de interés</option></select>
+                <textarea placeholder="Mensaje"></textarea>
+                <div class="form-spacer"></div>
+            </div>
+            <div class="contact-info">
+                <h2>¿Listo para invertir en tu futuro?</h2>
+                <p>Ya sea que busques el hogar de tus sueños o una oportunidad de inversión sólida, nuestros asesores están listos para guiarte. Completa el formulario y recibe una cotización personalizada o agenda una visita a nuestros showrooms.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="partners-bar">
+    <img src="icaLogo.jpg" alt="ICA">
+    <img src="grupoDiamLogo.png" alt="DIAM">
+    <img src="truperLogo.png" alt="TRUPER">
+    <img src="grupoLamosaLogo.png" alt="Grupo LAMOSA">
+    <img src="cemexLogo.png" alt="CEMEX">
+    <img src="holcimLogo.png" alt="HOLCIM">
+</div>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <img src="segundoLogo.png" alt="MAKIA" class="footer-logo-img">
+        </div>
+
+        <div class="footer-info">
+            <p class="policy-links">Política de Privacidad - Política de Cookies</p>
+            <p class="copyright">© 2026 MAKIA Inmobiliaria. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="footer-socials">
+            <a href="#"><img src="facebookLogo.png" alt="Facebook"></a>
+            <a href="#"><img src="instagramLogo.png" alt="Instagram"></a>
+            <a href="#"><img src="twiteerLogo.png" alt="X"></a>
+            <a href="#"><img src="linkedinLogo.png" alt="LinkedIn"></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+        const cards = document.querySelectorAll('.project-card');
+const nextBtn = document.querySelector('.next-btn');
+const prevBtn = document.querySelector('.prev-btn');
+let currentCard = 0;
+
+// Definimos los colores de los botones basados en tu paleta
+const colors = {
+    white: '#D1F2EB',   // Color para cuando la tarjeta blanca está activa
+    garden: '#CEEAD5',  // Color verde suave
+    prisma: '#D4BBFF'   // Color lavanda/morado suave
+};
+
+function updateButtonColors(index) {
+    const nextIndex = (index + 1) % cards.length;
+    const prevIndex = (index - 1 + cards.length) % cards.length;
+
+    // El botón "siguiente" toma el color de la tarjeta que viene
+    if (cards[nextIndex].classList.contains('card-garden')) {
+        nextBtn.style.backgroundColor = colors.garden;
+    } else if (cards[nextIndex].classList.contains('card-prisma')) {
+        nextBtn.style.backgroundColor = colors.prisma;
+    } else {
+        nextBtn.style.backgroundColor = colors.white;
+    }
+
+    // El botón "atrás" toma el color de la tarjeta anterior
+    if (cards[prevIndex].classList.contains('card-garden')) {
+        prevBtn.style.backgroundColor = colors.garden;
+    } else if (cards[prevIndex].classList.contains('card-prisma')) {
+        prevBtn.style.backgroundColor = colors.prisma;
+    } else {
+        prevBtn.style.backgroundColor = colors.white;
+    }
+}
+
+function showCard(index) {
+    cards.forEach(card => card.classList.remove('active'));
+    cards[index].classList.add('active');
+    updateButtonColors(index);
+}
+
+nextBtn.addEventListener('click', () => {
+    currentCard = (currentCard + 1) % cards.length;
+    showCard(currentCard);
+});
+
+prevBtn.addEventListener('click', () => {
+    currentCard = (currentCard - 1 + cards.length) % cards.length;
+    showCard(currentCard);
+});
+
+// Inicializar colores al cargar
+showCard(0);
+    </script>
+</body>
+</html>

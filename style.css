@@ -1,0 +1,351 @@
+:root{
+    --gris-fondo: #f1f3f4;
+    --blanco: #ffffff;
+    --negro: #000000;
+    --amarillo-acento: #fde293;
+    --azul-claro: #8ec0fb;
+    --azul-vibrante: #4f9df2;
+    --morado-prisma: #664f8d;
+    --lavanda-suave: #d4bbff;
+    --verde-petroleo: #2c5d69;
+    --cian-deslavado: #bedfe0;
+    --verde-garden: #ceead5;
+}
+
+
+
+
+
+/* Reseteo General */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
+
+
+
+
+
+
+/* Header */
+header { padding: 40px 60px; 
+    display: flex;
+    align-items: center;
+}
+.logo img { 
+    height: 40px; 
+    width: auto;
+    display: block;
+}
+
+
+
+
+
+
+/* Landing Page (Hero) */
+.hero-container { padding: 0 40px 40px 40px; }
+.hero-card {
+    height: 550px;
+    background: url('landingpage1.jpg') center/cover;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+}
+.text-block {
+    display: table;
+    font-size: 4rem;
+    font-weight: 900;
+    padding: 5px 20px;
+    margin-bottom: 8px;
+    color: var(--blanco)
+}
+.black { background: black; color: white; }
+.yellow { background: var(--amarillo-acento); color: black; }
+.white { background: white; color: var(--blanco); }
+.hero-subtitle { color: white; margin: 20px 0; font-size: 1.1rem; }
+.btn-hero {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 12px 35px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+
+
+
+
+
+/* --- Sección Sobre Nosotros --- */
+.about { 
+    padding: 120px 80px; 
+    background-color: var(--blanco); 
+    display: flex; 
+    justify-content: center; 
+}
+
+.about-container { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 80px; 
+    max-width: 1200px; 
+    align-items: flex-start; 
+}
+
+/* Imagen con borde redondeado suave */
+.about-image img { 
+    width: 100%; 
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+}
+
+/* Bloques de texto con línea lateral */
+.section-block {
+    margin-bottom: 40px;
+    padding-left: 30px;
+    border-left: 3px solid #e0e0e0; /* Línea gris por defecto */
+    transition: all 0.3s ease;
+}
+
+/* El bloque activo tiene la línea azul de tu paleta */
+.section-block.active {
+    border-left: 4px solid var(--azul-vibrante); /* #4F9DF2 según tu imagen */
+}
+
+/* Títulos de las etiquetas */
+.section-label { 
+    color: var(--negro); 
+    font-weight: 700; 
+    font-size: 1.4rem; 
+    margin-bottom: 15px; 
+}
+
+.section-label.small {
+    font-size: 1.2rem;
+    color: var(--negro);
+    margin-bottom: 0;
+}
+
+/* Estilo del párrafo */
+.about-text p {
+    color: #888; /* Gris suave como en la referencia */
+    line-height: 1.6;
+    font-size: 1.05rem;
+    max-width: 450px;
+}
+
+
+
+
+
+/* --- Carrusel de Proyectos --- */
+.projects-section { 
+    padding: 80px 40px; 
+    position: relative; 
+    background-color: var(--gris-fondo); /* Fondo suave para resaltar tarjetas */
+    overflow: hidden;
+}
+
+.carousel-container { 
+    min-height: 550px; /* Altura mínima fija para evitar saltos entre tarjetas */
+    position: relative; 
+    display: flex;
+    justify-content: center;
+}
+
+.project-card {
+    display: none; 
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* Animación de entrada: Suave y hacia arriba */
+.project-card.active { 
+    display: block; 
+    animation: fadeInUp 0.7s ease-out forwards; 
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.project-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Control total del tamaño de la imagen */
+.project-content img {
+    width: 100%;
+    height: 380px;      /* Altura idéntica para todas las fotos */
+    object-fit: cover;  /* Recorta la imagen para llenar el espacio sin estirarse */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.project-info h3 { 
+    font-weight: bold;
+    font-size: 2.5rem; 
+    margin-bottom: 20px; 
+}
+
+.project-info p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Colores de Tarjetas */
+.card-white { background-color: var(--blanco); color: var(--negro); }
+.card-garden { background-color: var(--verde-garden); color: var(--verde-petroleo); }
+.card-prisma { background-color: var(--morado-prisma); color: var(--blanco); }
+
+/* --- Controles Dinámicos --- */
+.carousel-controls { 
+    margin-top: 30px; 
+    display: flex; 
+    justify-content: center;
+    gap: 20px; 
+}
+
+.carousel-controls button {
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    border: none;
+    color: var(--negro); /* Corregido var() */
+    cursor: pointer; 
+    font-size: 1.3rem;
+    transition: all 0.4s ease; /* Transición suave para el color de fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-controls button:hover {
+    transform: scale(1.1);
+}
+
+
+
+
+
+
+
+/* Contáctanos */
+.contact { padding: 80px; }
+.contact-card-dark {
+    background: #2c5d5d; border-radius: 25px; display: grid; grid-template-columns: 1fr 1.2fr;
+    padding: 50px; gap: 50px; color: white;
+}
+.contact-form { background: white; padding: 30px; border-radius: 15px; }
+.contact-form input, .contact-form select, .contact-form textarea {
+    width: 100%; margin-bottom: 15px; padding: 12px; border: none; border-bottom: 1px solid #ddd;
+}
+.contact-info h2 { font-size: 2.5rem; margin-bottom: 25px; line-height: 1.2; }
+
+
+
+
+
+
+/* Barra de Asociados */
+.partners-bar img {
+    height: auto;       /* Dejamos que la altura sea flexible */
+    max-height: 35px;   /* Pero que no pase de 35px */
+    width: auto;
+    max-width: 120px;   /* Limitamos el ancho para logos muy horizontales */
+    object-fit: contain;
+   /* filter: grayscale(100%);  Opcional: para que se vean uniformes en gris */
+    opacity: 0.8;
+}
+
+/* Ajuste específico para Truper y Lamosa si siguen viéndose raros */
+.partners-bar img[alt="TRUPER"] {
+    max-height: 55px;
+}
+.partners-bar img[alt="Grupo LAMOSA"] {
+    max-height: 45px; /* Reducimos un poco su altura para compensar su ancho */
+}
+
+.partners-bar {
+    background-color: var(--azul-claro);
+    padding: 25px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Evita que los logos se peguen entre sí */
+}
+
+
+
+
+
+
+/* Footer Negro */
+.main-footer {
+    background-color: var(--negro); /* #000000 */
+    color: var(--blanco);
+    padding: 20px 60px; /* Un poco más angosto para que se vea elegante */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Empuja los elementos a los extremos y centro */
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Ajuste del Logo MAKIA a la izquierda */
+.footer-logo-img {
+    height: 22px; /* Tamaño discreto como en la referencia */
+    width: auto;
+}
+
+/* Texto central */
+.footer-info {
+    text-align: center;
+    flex-grow: 1; /* Ayuda a que el texto se mantenga realmente al centro */
+}
+
+.policy-links {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.copyright {
+    font-size: 11px;
+    color: #777;
+}
+
+/* Contenedor de Redes Sociales a la derecha */
+.footer-socials {
+    display: flex;
+    gap: 10px; /* Espaciado entre los cuadrados amarillos */
+    align-items: center;
+}
+
+.footer-socials img {
+    height: 32px; /* Tamaño de los cuadros amarillos según la imagen */
+    width: 32px;   /* Mantenemos proporción cuadrada */
+    display: block;
+    transition: opacity 0.2s;
+}
+
+.footer-socials a:hover img {
+    opacity: 0.8; /* Efecto visual simple al pasar el mouse */
+}
