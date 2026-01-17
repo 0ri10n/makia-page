@@ -11,7 +11,55 @@
     --cian-deslavado: #bedfe0;
     --verde-garden: #ceead5;
 }
+/* Contenedor de la imagen y el pie */
+.image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+}
 
+
+.image-container.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Estilo del texto del pie de página */
+.image-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Degradado de negro transparente a negro sólido para legibilidad */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+    color: #ffffff !important; /* Forzamos blanco para que resalte */
+    padding: 40px 20px 20px 20px; /* Más padding arriba por el degradado */
+    font-size: 0.9rem;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 0;
+    z-index: 10; /* Siempre por encima de la imagen */
+    pointer-events: none; /* Permite clicks a través del texto si fuera necesario */
+}
+
+/* Si la tarjeta es la de Distrito Prisma (fondo morado), 
+   cambiamos el color del texto para que sea legible */
+.card-prisma .image-description {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Ajuste para que la animación del carrusel siga funcionando correctamente */
+.project-card.active .project-content figure img {
+    /* Mantenemos tu lógica de transformación que ya tienes en el CSS */
+    transform: scale(calc(1.8 - (var(--scroll-reveal) * 0.8))) translateY(calc(-210px + (var(--scroll-reveal) * 210px)));
+    transform-origin: center top;
+    transition: transform 0.1s linear;
+}
 * {
     margin: 0;
     padding: 0;
@@ -110,23 +158,16 @@ header {
 
 .about-image {
     position: relative;
-    width: 100%;
     height: 450px;
     overflow: hidden;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .about-img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    z-index: 1;
+    display: block;
 }
 
 .about-img.active {
@@ -743,4 +784,95 @@ header {
 .input-group.success select,
 .input-group.success textarea {
     border-bottom: 2px solid #2ecc71;
+}
+
+/* Contenedor de cada par imagen/pie */
+.about-figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+}
+
+.about-figure.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Estilo del pie de imagen sobrepuesto */
+.image-description-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    color: white;
+    padding: 30px 20px 20px; /* Más espacio arriba para el degradado */
+    font-size: 0.95rem;
+    z-index: 10; /* Siempre por encima de las imágenes */
+    transition: all 0.5s ease-in-out;
+    display: none; /* Se controla por JS */
+}
+
+/* Re-ajuste de tus imágenes para que llenen la figura */
+.about-img {
+    z-index: 1;
+}
+/* --- FIX GENERAL DE CONTENEDORES --- */
+.about-image, .image-container {
+    position: relative;
+    width: 100%;
+    height: 450px; /* Asegura que siempre tengan altura */
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* --- FIX PARA SECCIÓN CONÓCENOS (Las que rotan) --- */
+.about-image .image-container {
+    position: absolute; /* Una encima de otra para el fade */
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.about-image .image-container.active {
+    opacity: 1;
+    z-index: 5;
+}
+
+/* --- FIX PARA SECCIÓN PROYECTOS (Carrusel) --- */
+.project-content .image-container {
+    height: 350px; /* Altura específica para los proyectos */
+    opacity: 1; /* Siempre visibles dentro de su card */
+    position: relative;
+}
+
+/* --- PIE DE PÁGINA (Sobre la imagen) --- */
+.image-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    color: white !important;
+    padding: 20px;
+    font-size: 0.85rem;
+    font-style: italic;
+    z-index: 10;
+    margin: 0;
+}
+
+/* --- ASEGURAR QUE LAS IMÁGENES SE VEAN --- */
+.about-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block !important;
+    opacity: 1 !important; /* El fade lo hace ahora el contenedor padre */
 }
