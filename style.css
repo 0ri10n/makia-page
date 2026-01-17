@@ -586,6 +586,9 @@ header {
     white-space: nowrap;
 }
 
+/* =======================================================
+   ESTILOS PARA DISPOSITIVOS MÓVILES (Celulares)
+   ======================================================= */
 @media (max-width: 768px) {
     .footer-socials {
         grid-template-columns: 1fr 1fr; 
@@ -598,9 +601,7 @@ header {
         width: 100%;
         justify-content: flex-start;
     }
-}
 
-@media (max-width: 768px) {
     header {
         padding: 20px;
         justify-content: center;
@@ -642,16 +643,21 @@ header {
         gap: 20px;
     }
 }
+/* ¡AQUÍ TERMINA LA CONFIGURACIÓN DE CELULARES! */
 
+
+/* =======================================================
+   ESTILOS DE VALIDACIÓN (GLOBALES - Funcionan en todos lados)
+   ======================================================= */
 .input-group {
     position: relative;
-    padding-bottom: 25px;
+    padding-bottom: 25px; 
 }
 
 .input-group small.error-text {
     color: #e74c3c; 
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
     position: absolute;
     bottom: 5px;
     left: 0;
@@ -666,14 +672,13 @@ header {
     border-bottom: 2px solid #e74c3c; 
 }
 
-.input-group.error small.error-text {
-    visibility: visible;
+.input-group.error small.error-text { 
+    visibility: visible;    
     opacity: 1;
 }
 
 .input-group.success input,
 .input-group.success select,
 .input-group.success textarea {
-    border-bottom: 2px solid #2ecc71; 
+    border-bottom: 2px solid #2ecc71;
 }
-
