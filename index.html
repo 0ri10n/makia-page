@@ -411,13 +411,13 @@
                 data.append('Mensaje', mensaje.value);
 
                 fetch(scriptURL, { method: 'POST', body: data })
-                    .then(response => {
-                        alert('¡Gracias! Hemos recibido tu información.');
-                        form.reset();
-                        eliminarClases();
-                        btnSubmit.innerText = textoOriginal;
-                        btnSubmit.disabled = false;
-                    })
+                .then(response => {
+                    alert('¡Gracias! Hemos recibido tu información.');
+                    form.reset(); 
+                    eliminarClases(); 
+                    btnSubmit.innerText = textoOriginal;
+                    btnSubmit.disabled = false;
+                })
                     .catch(error => {
                         alert('Error al enviar. Intenta de nuevo.');
                         console.error('Error!', error.message);
@@ -447,5 +447,6 @@
 </body>
 
 </html>
+
 
 
