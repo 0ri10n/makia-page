@@ -451,8 +451,8 @@ header {
     border-radius: 25px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    padding: 40px 60px; /* Bajamos de 60px a 40px verticalmente */
-    gap: 40px;          /* Reducimos el espacio entre info y formulario */
+    padding: 40px 60px; 
+    gap: 40px;          
     color: white;
     max-width: 1200px;
     margin: 0 auto;
@@ -461,26 +461,24 @@ header {
 
 .contact-form {
     background: white;
-    padding: 30px;      /* Bajamos de 40px a 30px */
+    padding: 30px;     
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;          /* Reducimos de 25px a 15px para acercar los campos */
+    gap: 15px;       
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Ajustamos el grupo de entrada para usar menos espacio */
 .input-group {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-bottom: 5px; /* Reducimos el espacio de validación si no se usa */
+    padding-bottom: 5px; 
 }
 
-/* Reducimos el margen inferior de las etiquetas */
 .input-group label {
     font-size: 0.75rem;
-    margin-bottom: 2px; /* Etiqueta más pegada al input */
+    margin-bottom: 2px; 
 }
 
 .contact-form input,
@@ -497,9 +495,9 @@ header {
     outline: none;
     transition: border-color 0.3s ease;
 }
-/* Compactamos el botón y el área de mensaje */
+
 .contact-form textarea {
-    min-height: 60px;   /* Bajamos de 80px a 60px */
+    min-height: 60px;   
 }
 
 .contact-form input:focus,
@@ -559,17 +557,17 @@ header {
     object-fit: contain;
     opacity: 0.8;
 }
-/* Reduce específicamente el logo de DIAM */
+
 .partners-bar img[alt="Grupo DIAM"] {
-    max-height: 22px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    max-height: 22px; 
     width: auto;
 }
 .partners-bar img[alt="CEMEX"] {
-    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    max-height: 30px; 
     width: auto;
 }
 .partners-bar img[alt="HOLCIM México"] {
-    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    max-height: 30px; 
     width: auto;
 }
 
@@ -588,10 +586,9 @@ header {
     gap: 0;
 }
 
-/* Contenedor del logo */
 .footer-logo {
     display: flex;
-    justify-content: flex-start; /* Alinea el logo al extremo izquierdo */
+    justify-content: flex-start; 
 }
 
 .footer-logo-img {
@@ -649,22 +646,10 @@ header {
     white-space: nowrap;
 }
 
-/* =======================================================
-   ESTILOS PARA DISPOSITIVOS MÓVILES (Celulares)
-   ======================================================= */
-@media (max-width: 768px) {
-    .footer-socials {
-        grid-template-columns: 1fr 1fr; 
-        gap: 15px;
-        margin-top: 20px;
-        justify-items: center; 
-    }
-    
-    .social-link {
-        width: 100%;
-        justify-content: flex-start;
-    }
+/* ESTILOS PARA DISPOSITIVOS MÓVILES (Celulares) */
 
+@media (max-width: 768px) {
+    
     header {
         padding: 20px;
         justify-content: center;
@@ -680,78 +665,68 @@ header {
         grid-template-columns: 1fr;
     }
 
+
+    .about-image, .image-container {
+        height: 300px !important; 
+    }
+
     .contact-card-dark {
         grid-template-columns: 1fr;
         padding: 40px 25px;
         gap: 40px;
     }
 
-    .contact-form {
-        order: 2;
-    }
+    .contact-form { order: 2; }
+    .contact-info { order: 1; text-align: center; }
 
-    .contact-info {
-        order: 1;
-        text-align: center;
-    }
 
-    /* --- Patrocinadores en Móvil --- */
     .partners-bar {
         padding: 40px 20px;
         display: grid; 
-        /* Creamos 2 columnas para que los logos no se vean diminutos */
         grid-template-columns: repeat(2, 1fr); 
         gap: 30px; 
         justify-items: center;
     }
 
     .partners-bar img {
-        max-height: 25px; /* Reducimos altura para que quepan bien */
+        max-height: 25px; 
         width: auto;
     }
 
-    /* --- Footer en Móvil --- */
+
     .main-footer {
         padding: 30px 20px;
     }
 
     .footer-container {
         display: flex;
-        flex-direction: column; /* Apilamos los elementos verticalmente */
+        flex-direction: column;
         align-items: center;
         text-align: center;
         gap: 25px;
     }
 
-    .footer-logo {
-        justify-content: center; /* Logo centrado */
-    }
-
-    .footer-info {
-        padding: 0;
-        order: 2; /* Bajamos el texto legal debajo del logo */
-    }
+    .footer-logo { justify-content: center; }
+    .footer-info { padding: 0; order: 2; }
 
     .footer-socials {
-        display: flex; /* En móvil es mejor flex para centrar */
+        display: flex; 
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
         order: 3;
         width: 100%;
+        margin-top: 0; 
     }
 
     .social-link {
-        justify-content: center; /* Centramos el icono + texto */
-        width: auto; /* Que no ocupe todo el ancho para que quepan varios */
+        justify-content: center;
+        width: auto; 
     }
 }
-/* ¡AQUÍ TERMINA LA CONFIGURACIÓN DE CELULARES! */
 
 
-/* =======================================================
-   ESTILOS DE VALIDACIÓN (GLOBALES - Funcionan en todos lados)
-   ======================================================= */
+/* ESTILOS DE VALIDACIÓN (GLOBALES - Funcionan en todos lados)  */
 .input-group {
     position: relative;
     padding-bottom: 25px; 
@@ -786,74 +761,39 @@ header {
     border-bottom: 2px solid #2ecc71;
 }
 
-/* Contenedor de cada par imagen/pie */
-.about-figure {
+.about-image, .image-container {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.about-image .image-container, 
+.about-figure { 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    margin: 0;
-    opacity: 0;
+    opacity: 0; 
     transition: opacity 0.8s ease-in-out;
     z-index: 1;
 }
 
+.about-image .image-container.active,
 .about-figure.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-/* Estilo del pie de imagen sobrepuesto */
-.image-description-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    color: white;
-    padding: 30px 20px 20px; /* Más espacio arriba para el degradado */
-    font-size: 0.95rem;
-    z-index: 10; /* Siempre por encima de las imágenes */
-    transition: all 0.5s ease-in-out;
-    display: none; /* Se controla por JS */
-}
-
-/* Re-ajuste de tus imágenes para que llenen la figura */
-.about-img {
-    z-index: 1;
-}
-/* --- FIX GENERAL DE CONTENEDORES --- */
-.about-image, .image-container {
-    position: relative;
-    width: 100%;
-    height: 450px; /* Asegura que siempre tengan altura */
-    overflow: hidden;
-    border-radius: 12px;
-}
-
-/* --- FIX PARA SECCIÓN CONÓCENOS (Las que rotan) --- */
-.about-image .image-container {
-    position: absolute; /* Una encima de otra para el fade */
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-}
-
-.about-image .image-container.active {
     opacity: 1;
     z-index: 5;
 }
 
-/* --- FIX PARA SECCIÓN PROYECTOS (Carrusel) --- */
-.project-content .image-container {
-    height: 350px; /* Altura específica para los proyectos */
-    opacity: 1; /* Siempre visibles dentro de su card */
-    position: relative;
+.about-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    display: block !important;
 }
 
-/* --- PIE DE PÁGINA (Sobre la imagen) --- */
 .image-description {
     position: absolute;
     bottom: 0;
@@ -863,16 +803,11 @@ header {
     color: white !important;
     padding: 20px;
     font-size: 0.85rem;
-    font-style: italic;
     z-index: 10;
     margin: 0;
+    pointer-events: none; 
 }
 
-/* --- ASEGURAR QUE LAS IMÁGENES SE VEAN --- */
-.about-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-    display: block !important;
-    opacity: 1 !important; /* El fade lo hace ahora el contenedor padre */
+.card-prisma .image-description {
+    color: rgba(255, 255, 255, 0.9) !important;
 }
