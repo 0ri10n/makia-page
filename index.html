@@ -39,9 +39,24 @@
     <section id="conocenos" class="about">
         <div class="about-container">
             <div class="about-image">
+                <figure class="image-container">
                 <img src="aboutuspage2.jpg" class="about-img active" alt="Sobre nosotros">
+                <figcaption class="image-description">
+                    Nuestra sede: una estructura de arquitectura deconstructivista que simboliza la innovación y la solidez de MAKIA en el sector inmobiliario.
+                </figcaption>
+                </figure>
+                <figure class="image-container">
                 <img src="mision.jpg" class="about-img" alt="Misión">
+                <figcaption class="image-description">
+                    Compromiso con la sostenibilidad: integración de ecosistemas verticales para elevar la calidad de vida urbana y la responsabilidad ambiental.
+                </figcaption>
+                </figure>
+                <figure class="image-container">
                 <img src="vision.jpg" class="about-img" alt="Visión">
+                <figcaption class="image-description">
+                    Espacios del futuro: entornos funcionales y luminosos que conectan el lujo interior con la naturaleza, proyectando el horizonte de nuestras ciudades.
+                </figcaption>
+                </figure>
             </div>
             <div class="about-text">
                 <div class="section-block active">
@@ -89,7 +104,12 @@
                         <p>Arquitectura orgánica que desafía la gravedad. Su diseño giratorio permite balcones continuos
                             y vistas panorámicas de 360° en cada nivel, fusionando lujo y movimiento.</p>
                     </div>
+                    <figure class="image-container">
                     <img src="torre_zenith.jpg" alt="Torre Zenith">
+                    <figcaption class="image-description">
+                        Dinámica urbana: la rotación gradual de la estructura optimiza la incidencia de luz solar en cada planta, permitiendo que la fachada actúe como un organismo vivo que cambia según la perspectiva del observador.
+                    </figcaption>
+                    </figure>
                 </div>
             </div>
 
@@ -100,7 +120,12 @@
                         <p>Arriba, un pulmón verde para la ciudad. Abajo, un exclusivo hub comercial. Descubre un mundo
                             subterráneo bañado en luz donde el lifestyle y la naturaleza coexisten.</p>
                     </div>
+                    <figure class="image-container">
                     <img src="garden_santa_fe.jpg" alt="Garden Santa Fe">
+                    <figcaption class="image-description">
+                        Ingeniería de vanguardia: la excavación circular no solo provee iluminación natural a los niveles inferiores, sino que crea un microclima controlado que reduce el consumo energético del complejo.
+                    </figcaption>
+                    </figure>
                 </div>
             </div>
 
@@ -112,7 +137,12 @@
                             Espacios habitables llenos de luz y geometría para quienes buscan vivir dentro de una obra de arte.
                         </p>
                     </div>
+                    <figure class="image-container">
                     <img src="distrito_prisma.jpg" alt="Distrito Prisma">
+                    <figcaption class="image-description">
+                        Geometrías en equilibrio: el voladizo superior desafía la percepción visual, ofreciendo una terraza privada que se integra al volumen principal mediante el uso de contrastes cromáticos y materiales industriales.
+                    </figcaption>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -214,52 +244,56 @@
     </footer>
 
     <script>
-        /* 1. LÓGICA DE VISIÓN/MISIÓN Y ANIMACIONES */
-        const aboutBlocks = document.querySelectorAll('.section-block');
-        const aboutImages = document.querySelectorAll('.about-img');
-        let aboutIndex = 0;
-        let aboutInterval;
+      /* 1. LÓGICA DE VISIÓN/MISIÓN Y ANIMACIONES */
+const aboutBlocks = document.querySelectorAll('.section-block');
+// Cambiamos la selección para apuntar al contenedor completo (figura)
+const aboutFigures = document.querySelectorAll('.image-container'); 
+let aboutIndex = 0;
+let aboutInterval;
 
-        function switchAbout(index) {
-            aboutBlocks.forEach(block => {
-                block.classList.remove('active');
-                const bar = block;
-                void bar.offsetWidth;
-            });
-            aboutImages.forEach(img => img.classList.remove('active'));
-            aboutBlocks[index].classList.add('active');
-            aboutImages[index].classList.add('active');
-            aboutIndex = index;
+function switchAbout(index) {
+    aboutBlocks.forEach(block => {
+        block.classList.remove('active');
+        void block.offsetWidth; // Reinicia animación de barra
+    });
+    
+    // Quitamos la clase active de todas las figuras (esto ocultará imagen y texto)
+    aboutFigures.forEach(fig => fig.classList.remove('active'));
+    
+    // Activamos el bloque de texto y la figura correspondiente
+    aboutBlocks[index].classList.add('active');
+    aboutFigures[index].classList.add('active');
+    
+    aboutIndex = index;
+}
+
+function startAboutTimer() {
+    if (aboutInterval) clearInterval(aboutInterval);
+    aboutInterval = setInterval(() => {
+        const nextIndex = (aboutIndex + 1) % aboutBlocks.length;
+        switchAbout(nextIndex);
+    }, 7000);
+}
+
+aboutBlocks.forEach((block, i) => {
+    block.addEventListener('click', () => {
+        clearInterval(aboutInterval);
+        switchAbout(i);
+        startAboutTimer();
+    });
+});
+
+const aboutSection = document.querySelector('.about');
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            switchAbout(0);
+            startAboutTimer();
+            observer.unobserve(entry.target);
         }
-
-        function startAboutTimer() {
-            if (aboutInterval) clearInterval(aboutInterval);
-            aboutInterval = setInterval(() => {
-                const nextIndex = (aboutIndex + 1) % aboutBlocks.length;
-                switchAbout(nextIndex);
-            }, 7000);
-        }
-
-        aboutBlocks.forEach((block, i) => {
-            block.addEventListener('click', () => {
-                clearInterval(aboutInterval);
-                switchAbout(i);
-                startAboutTimer();
-            });
-        });
-
-        const aboutSection = document.querySelector('.about');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    switchAbout(0);
-                    startAboutTimer();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        if (aboutSection) observer.observe(aboutSection);
-
+    });
+}, { threshold: 0.5 });
+if (aboutSection) observer.observe(aboutSection);
 
         /* 2. LÓGICA DEL CARRUSEL */
         const cards = document.querySelectorAll('.project-card');
