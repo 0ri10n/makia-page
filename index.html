@@ -1,746 +1,457 @@
-:root {
-    --gris-fondo: #f1f3f4;
-    --blanco: #ffffff;
-    --negro: #000000;
-    --amarillo-acento: #fde293;
-    --azul-claro: #8ec0fb;
-    --azul-vibrante: #4f9df2;
-    --morado-prisma: #664f8d;
-    --lavanda-suave: #d4bbff;
-    --verde-petroleo: #2c5d69;
-    --cian-deslavado: #bedfe0;
-    --verde-garden: #ceead5;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-header {
-    padding: 40px 60px;
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    height: 40px;
-    width: auto;
-    display: block;
-}
-
-.hero-container {
-    padding: 0 40px 40px 40px;
-}
-
-.hero-card {
-    height: 550px;
-    background: url('landingpage1.jpg') center/cover;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    padding-left: 80px;
-}
-
-.text-block {
-    display: table;
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    font-weight: 900;
-    padding: 5px 20px;
-    margin-bottom: 8px;
-    color: var(--blanco);
-}
-
-.black {
-    background: black;
-    color: white;
-}
-
-.yellow {
-    background: var(--amarillo-acento);
-    color: black;
-}
-
-.white {
-    background: white;
-    color: var(--blanco);
-}
-
-.hero-subtitle {
-    color: white;
-    margin: 20px 0;
-    font-size: 1.1rem;
-}
-
-.btn-hero {
-    display: inline-block;
-    background: black;
-    color: white;
-    padding: 12px 35px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.about {
-    padding: 120px 80px;
-    background-color: var(--blanco);
-    display: flex;
-    justify-content: center;
-}
-
-.about-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    max-width: 1200px;
-    align-items: flex-start;
-}
-
-.about-image {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.about-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    z-index: 1;
-}
-
-.about-img.active {
-    opacity: 1;
-    z-index: 2;
-}
-
-.section-block {
-    margin-bottom: 20px;
-    padding-left: 30px;
-    border-left: 3px solid #e0e0e0;
-    position: relative;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
-
-.section-block::after {
-    content: '';
-    position: absolute;
-    left: -3px;
-    top: 0;
-    width: 3px;
-    height: 0%; 
-    background-color: var(--azul-vibrante);
-    transition: none;
-}
-
-.section-block.active::after {
-    animation: fillBar 7s linear forwards;
-}
-
-@keyframes fillBar {
-    0% { height: 0%; }
-    100% { height: 100%; }
-}
-
-.section-label {
-    color: var(--negro);
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-}
-
-.section-content {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.5s ease-out;
-}
-
-.section-block.active .section-content {
-    grid-template-rows: 1fr;
-}
-
-.content-wrapper {
-    overflow: hidden;
-}
-
-.section-content p {
-    color: var(--negro);
-    line-height: 1.6;
-    font-size: 1.05rem;
-    max-width: 450px;
-    padding-top: 0;
-    padding-bottom: 0;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.5s ease;
-}
-
-.section-block.active .section-content p {
-    padding-top: 10px;
-    padding-bottom: 15px;
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s; 
-}
-
-.about-text p {
-    color: var(--negro);
-    line-height: 1.6;
-    font-size: 1.05rem;
-    max-width: 450px;
-}
-
-.projects-section {
-    padding: 150px 40px 80px 40px;
-    position: relative;
-    background-color: var(--gris-fondo);
-    z-index: 10;
-    --scroll-reveal: 0;
-}
-
-.carousel-container {
-    min-height: 550px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.project-card {
-    display: none;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1100px;
-}
-
-@media (min-width: 769px) {
-    .card-prisma .project-content {
-        display: grid !important;
-        grid-template-columns: 1fr 1.5fr !important;
-        gap: 50px !important;
-        align-items: center !important;
-    }
-
-    .card-prisma .project-info {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 30px !important;
-        text-align: left !important;
-    }
-
-    .card-prisma .project-info h3,
-    .card-prisma .project-info p {
-        color: var(--blanco) !important;
-        margin: 0 !important;
-        text-align: left !important;
-    }
-
-    .card-prisma .project-info h3 {
-        font-size: 3rem !important;
-        line-height: 1.1 !important;
-    }
-
-    .card-prisma .project-info p {
-        max-width: 300px !important;
-    }
-
-    .card-prisma .project-content img {
-        height: 550px !important;
-        width: 100% !important;
-        object-fit: cover !important;
-        margin-right: -40px;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
-}
-
-
-
-.project-card.active {
-    display: block;
-    animation: switchSlide 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-@keyframes switchSlide {
-    0% { opacity: 0; transform: scale(0.96) translateY(20px); }
-    100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.project-card.active .project-content img {
-    transform: scale(calc(1.8 - (var(--scroll-reveal) * 0.8))) translateY(calc(-210px + (var(--scroll-reveal) * 210px)));
-    transform-origin: center top;
-    transition: transform 0.1s linear;
-    will-change: transform;
-    z-index: 2;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-}
-
-.project-card.active .project-info {
-    opacity: var(--scroll-reveal);
-    transform: translateX(calc(50px - (var(--scroll-reveal) * 50px)));
-    transition: opacity 0.1s linear, transform 0.1s linear;
-    z-index: 1;
-}
-
-.project-card.active {
-    background-color: transparent; 
-}
-
-.project-card.active::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 20px;
-    z-index: 0;
-    opacity: var(--scroll-reveal);
-    transition: opacity 0.1s linear;
-}
-
-.project-card.card-white.active::before { background-color: var(--blanco); }
-.project-card.card-garden.active::before { background-color: var(--verde-garden); }
-.project-card.card-prisma.active::before { background-color: var(--morado-prisma); }
-
-.project-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.project-info {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
-    align-items: start;
-    width: 100%;
-}
-
-.project-info h3 {
-    font-weight: bold;
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    margin: 0;
-    text-align: left;
-    color: var(--negro);
-}
-
-.project-info p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--negro);
-    margin: 0;
-    text-align: left;
-}
-
-.project-content img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.card-white {
-    background-color: var(--blanco);
-    color: var(--negro);
-}
-
-.card-garden {
-    background-color: var(--verde-garden);
-    color: var(--verde-petroleo);
-}
-
-.card-prisma {
-    background-color: var(--morado-prisma);
-    color: var(--blanco);
-}
-
-.carousel-controls {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.carousel-controls button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    color: var(--negro);
-    cursor: pointer;
-    font-size: 1.3rem;
-    transition: all 0.4s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.carousel-controls button:hover {
-    transform: scale(1.1);
-}
-
-.contact {
-    padding: 80px 40px;
-    background-color: var(--blanco);
-}
-
-.contact-card-dark {
-    background: #2c5d5d;
-    border-radius: 25px;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    padding: 40px 60px; /* Bajamos de 60px a 40px verticalmente */
-    gap: 40px;          /* Reducimos el espacio entre info y formulario */
-    color: white;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.contact-form {
-    background: white;
-    padding: 30px;      /* Bajamos de 40px a 30px */
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;          /* Reducimos de 25px a 15px para acercar los campos */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Ajustamos el grupo de entrada para usar menos espacio */
-.input-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 5px; /* Reducimos el espacio de validación si no se usa */
-}
-
-/* Reducimos el margen inferior de las etiquetas */
-.input-group label {
-    font-size: 0.75rem;
-    margin-bottom: 2px; /* Etiqueta más pegada al input */
-}
-
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #eee;
-    background: transparent;
-    font-family: inherit;
-    font-size: 1rem;
-    color: #333;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-/* Compactamos el botón y el área de mensaje */
-.contact-form textarea {
-    min-height: 60px;   /* Bajamos de 80px a 60px */
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-bottom: 1.5px solid var(--verde-petroleo);
-}
-
-.contact-form textarea {
-    min-height: 80px;
-    resize: none;
-}
-
-.btn-submit {
-    background-color: var(--negro);
-    color: white;
-    padding: 12px 32px;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    margin-top: 5px;
-}
-
-.btn-submit:hover {
-    background-color: #333;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.contact-info h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 20px;
-    font-weight: 800;
-}
-
-.contact-info p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
-.partners-bar {
-    background-color: var(--azul-claro);
-    padding: 25px 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 180px;
-}
-
-.partners-bar img {
-    max-height: 35px;
-    width: auto;
-    object-fit: contain;
-    opacity: 0.8;
-}
-/* Reduce específicamente el logo de DIAM */
-.partners-bar img[alt="Grupo DIAM"] {
-    max-height: 22px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
-    width: auto;
-}
-.partners-bar img[alt="CEMEX"] {
-    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
-    width: auto;
-}
-.partners-bar img[alt="HOLCIM México"] {
-    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
-    width: auto;
-}
-
-.main-footer {
-    background-color: var(--negro);
-    color: var(--blanco);
-    padding: 15px 60px;
-}
-
-.footer-container {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    gap: 0;
-}
-
-/* Contenedor del logo */
-.footer-logo {
-    display: flex;
-    justify-content: flex-start; /* Alinea el logo al extremo izquierdo */
-}
-
-.footer-logo-img {
-    height: 22px;
-    width: auto;
-}
-
-.footer-info {
-    text-align: center;
-    padding: 0 20px;
-}
-
-.policy-links {
-    font-size: 13px;
-    margin-bottom: 2px;
-}
-
-.copyright {
-    font-size: 11px;
-    color: #777;
-}
-
-
-.footer-socials {
-    display: grid;
-    grid-template-columns: auto auto; 
-    gap: 10px 30px; 
-    justify-self: flex-end;
-}
-
-.social-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: var(--blanco);
-    transition: all 0.3s ease;
-    padding: 5px;
-}
-
-.social-link:hover {
-    opacity: 0.8;
-    transform: translateX(3px);
-}
-
-.social-link img {
-    height: 24px;
-    width: 24px;
-    object-fit: contain;
-}
-
-.social-link span {
-    font-size: 13px;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-/* =======================================================
-   ESTILOS PARA DISPOSITIVOS MÓVILES (Celulares)
-   ======================================================= */
-@media (max-width: 768px) {
-    .footer-socials {
-        grid-template-columns: 1fr 1fr; 
-        gap: 15px;
-        margin-top: 20px;
-        justify-items: center; 
-    }
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAKIA - Inmobiliaria</title>
+    <link rel="icon" href="icono.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     
-    .social-link {
-        width: 100%;
-        justify-content: flex-start;
-    }
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    header {
-        padding: 20px;
-        justify-content: center;
-    }
+<body>
 
-    .hero-card {
-        padding-left: 20px;
-        justify-content: center;
-        height: 400px;
-    }
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo MAKIA">
+        </div>
+    </header>
 
-    .about-container {
-        grid-template-columns: 1fr;
-    }
+    <section class="hero-container">
+        <div class="hero-card">
+            <div class="hero-overlay-text">
+                <div class="text-block black">DONDE</div>
+                <div class="text-block">CRECEN</div>
+                <div class="text-block yellow">GRANDES</div>
+                <div class="text-block">IDEAS.</div>
+                <p class="hero-subtitle">Soluciones inmobiliarias a medida</p>
+                <a href="#conocenos" class="btn-hero">Conócenos</a>
+            </div>
+        </div>
+    </section>
 
-    .contact-card-dark {
-        grid-template-columns: 1fr;
-        padding: 40px 25px;
-        gap: 40px;
-    }
+    <section id="conocenos" class="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="aboutuspage2.jpg" class="about-img active" alt="Sobre nosotros">
+                <img src="mision.jpg" class="about-img" alt="Misión">
+                <img src="vision.jpg" class="about-img" alt="Visión">
+            </div>
+            <div class="about-text">
+                <div class="section-block active">
+                    <div class="section-label">Sobre nosotros</div>
+                    <div class="section-content">
+                        <div class="content-wrapper">
+                            <p>MAKIA es una inmobiliaria enfocada en el desarrollo y gestión de proyectos residenciales
+                                y comerciales. Nos caracterizamos por crear propuestas bien planeadas, funcionales y
+                                orientadas a generar valor a largo plazo.</p>
+                        </div>
+                    </div>
+                </div>
 
-    .contact-form {
-        order: 2;
-    }
+                <div class="section-block">
+                    <div class="section-label">Misión</div>
+                    <div class="section-content">
+                        <div class="content-wrapper">
+                            <p>Desarrollar espacios inmobiliarios innovadores y sostenibles que eleven la calidad de
+                                vida de nuestros usuarios, garantizando plusvalía para nuestros inversores y armonía con el
+                                entorno urbano.</p>
+                        </div>
+                    </div>
+                </div>
 
-    .contact-info {
-        order: 1;
-        text-align: center;
-    }
+                <div class="section-block">
+                    <div class="section-label">Visión</div>
+                    <div class="section-content">
+                        <div class="content-wrapper">
+                            <p>Ser el referente líder en el sector inmobiliario nacional, reconocidos por transformar el
+                                horizonte de la ciudad con proyectos icónicos que combinan lujo, funcionalidad y responsabilidad
+                                ambiental.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    /* --- Patrocinadores en Móvil --- */
-    .partners-bar {
-        padding: 40px 20px;
-        display: grid; 
-        /* Creamos 2 columnas para que los logos no se vean diminutos */
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 30px; 
-        justify-items: center;
-    }
+    <section class="projects-section">
+        <div class="carousel-container">
+            <div class="project-card active card-white">
+                <div class="project-content">
+                    <div class="project-info">
+                        <h3>Torre Zenith</h3>
+                        <p>Arquitectura orgánica que desafía la gravedad. Su diseño giratorio permite balcones continuos
+                            y vistas panorámicas de 360° en cada nivel, fusionando lujo y movimiento.</p>
+                    </div>
+                    <img src="torre_zenith.jpg" alt="Torre Zenith">
+                </div>
+            </div>
 
-    .partners-bar img {
-        max-height: 25px; /* Reducimos altura para que quepan bien */
-        width: auto;
-    }
+            <div class="project-card card-garden">
+                <div class="project-content">
+                    <div class="project-info">
+                        <h3>Garden Santa Fe</h3>
+                        <p>Arriba, un pulmón verde para la ciudad. Abajo, un exclusivo hub comercial. Descubre un mundo
+                            subterráneo bañado en luz donde el lifestyle y la naturaleza coexisten.</p>
+                    </div>
+                    <img src="garden_santa_fe.jpg" alt="Garden Santa Fe">
+                </div>
+            </div>
 
-    /* --- Footer en Móvil --- */
-    .main-footer {
-        padding: 30px 20px;
-    }
+            <div class="project-card card-prisma">
+                <div class="project-content">
+                    <div class="project-info">
+                        <h3>Distrito Prisma</h3>
+                        <p>Olvida lo convencional. Lofts de diseño deconstructivista donde cada ángulo es único.
+                            Espacios habitables llenos de luz y geometría para quienes buscan vivir dentro de una obra de arte.
+                        </p>
+                    </div>
+                    <img src="distrito_prisma.jpg" alt="Distrito Prisma">
+                </div>
+            </div>
+        </div>
 
-    .footer-container {
-        display: flex;
-        flex-direction: column; /* Apilamos los elementos verticalmente */
-        align-items: center;
-        text-align: center;
-        gap: 25px;
-    }
+        <div class="carousel-controls">
+            <button class="prev-btn">❮</button>
+            <button class="next-btn">❯</button>
+        </div>
+    </section>
 
-    .footer-logo {
-        justify-content: center; /* Logo centrado */
-    }
+    <section class="contact">
+        <div class="contact-card-dark">
+            
+            <form class="contact-form" id="formulario-contacto" novalidate>
+                <div class="input-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez">
+                    <small class="error-text"></small> </div>
 
-    .footer-info {
-        padding: 0;
-        order: 2; /* Bajamos el texto legal debajo del logo */
-    }
+                <div class="input-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="Email" placeholder="correo@ejemplo.com">
+                    <small class="error-text"></small>
+                </div>
 
-    .footer-socials {
-        display: flex; /* En móvil es mejor flex para centrar */
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        order: 3;
-        width: 100%;
-    }
+                <div class="input-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="Telefono" placeholder="+52 ...">
+                    <small class="error-text"></small>
+                </div>
 
-    .social-link {
-        justify-content: center; /* Centramos el icono + texto */
-        width: auto; /* Que no ocupe todo el ancho para que quepan varios */
-    }
-}
-/* ¡AQUÍ TERMINA LA CONFIGURACIÓN DE CELULARES! */
+                <div class="input-group">
+                    <label for="proyecto">Proyecto de interés</label>
+                    <select id="proyecto" name="Proyecto">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Torre Zenith">Torre Zenith</option>
+                        <option value="Garden Santa Fe">Garden Santa Fe</option>
+                        <option value="Distrito Prisma">Distrito Prisma</option>
+                    </select>
+                    <small class="error-text"></small>
+                </div>
+
+                <div class="input-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="Mensaje" placeholder="Cuéntanos más sobre lo que buscas"></textarea>
+                    <small class="error-text"></small>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btnEnviar">Enviar información</button>
+            </form>
+
+            <div class="contact-info">
+                <h2>¿Listo para invertir en tu futuro?</h2>
+                <p>Ya sea que busques el hogar de tus sueños o una oportunidad de inversión sólida, nuestros asesores
+                    están listos para guiarte.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="partners-bar">
+        <img src="icaLogo.jpg" alt="Constructora ICA">
+        <img src="grupoDiamLogo.png" alt="Grupo DIAM">
+        <img src="truperLogo.png" alt="TRUPER">
+        <img src="grupoLamosaLogo.png" alt="Grupo LAMOSA">
+        <img src="cemexLogo.png" alt="CEMEX">
+        <img src="holcimLogo.png" alt="HOLCIM México">
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="segundoLogo.png" alt="MAKIA" class="footer-logo-img">
+            </div>
+
+            <div class="footer-info">
+                <p class="policy-links">Política de Privacidad - Política de Cookies</p>
+                <p class="copyright">© 2026 MAKIA Inmobiliaria. Todos los derechos reservados.</p>
+            </div>
+
+            <div class="footer-socials">
+                <a href="https://facebook.com" target="_blank" class="social-link">
+                    <img src="facebookLogo.png" alt="Facebook">
+                    <span>/makia.fb</span>
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-link">
+                    <img src="instagramLogo.png" alt="Instagram">
+                    <span>@makia.mx</span>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="social-link">
+                    <img src="twiteerLogo.png" alt="X Red Social">
+                    <span>@makia_oficial</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="social-link">
+                    <img src="linkedinLogo.png" alt="LinkedIn">
+                    <span>/company/makia</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* 1. LÓGICA DE VISIÓN/MISIÓN Y ANIMACIONES */
+        const aboutBlocks = document.querySelectorAll('.section-block');
+        const aboutImages = document.querySelectorAll('.about-img');
+        let aboutIndex = 0;
+        let aboutInterval;
+
+        function switchAbout(index) {
+            aboutBlocks.forEach(block => {
+                block.classList.remove('active');
+                const bar = block;
+                void bar.offsetWidth;
+            });
+            aboutImages.forEach(img => img.classList.remove('active'));
+            aboutBlocks[index].classList.add('active');
+            aboutImages[index].classList.add('active');
+            aboutIndex = index;
+        }
+
+        function startAboutTimer() {
+            if (aboutInterval) clearInterval(aboutInterval);
+            aboutInterval = setInterval(() => {
+                const nextIndex = (aboutIndex + 1) % aboutBlocks.length;
+                switchAbout(nextIndex);
+            }, 7000);
+        }
+
+        aboutBlocks.forEach((block, i) => {
+            block.addEventListener('click', () => {
+                clearInterval(aboutInterval);
+                switchAbout(i);
+                startAboutTimer();
+            });
+        });
+
+        const aboutSection = document.querySelector('.about');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    switchAbout(0);
+                    startAboutTimer();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        if (aboutSection) observer.observe(aboutSection);
 
 
-/* =======================================================
-   ESTILOS DE VALIDACIÓN (GLOBALES - Funcionan en todos lados)
-   ======================================================= */
-.input-group {
-    position: relative;
-    padding-bottom: 25px; 
-}
+        /* 2. LÓGICA DEL CARRUSEL */
+        const cards = document.querySelectorAll('.project-card');
+        const nextBtn = document.querySelector('.next-btn');
+        const prevBtn = document.querySelector('.prev-btn');
+        let currentCard = 0;
 
-.input-group small.error-text {
-    color: #e74c3c; 
-    font-size: 12px;
-    font-weight: 600;
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.3s ease;
-}
+        const colors = {
+            white: '#D1F2EB',
+            garden: '#CEEAD5',
+            prisma: '#D4BBFF'
+        };
 
-.input-group.error input,
-.input-group.error select,
-.input-group.error textarea {
-    border-bottom: 2px solid #e74c3c; 
-}
+        function updateButtonColors(index) {
+            const nextIndex = (index + 1) % cards.length;
+            const prevIndex = (index - 1 + cards.length) % cards.length;
 
-.input-group.error small.error-text { 
-    visibility: visible;    
-    opacity: 1;
-}
+            if (cards[nextIndex].classList.contains('card-garden')) {
+                nextBtn.style.backgroundColor = colors.garden;
+            } else if (cards[nextIndex].classList.contains('card-prisma')) {
+                nextBtn.style.backgroundColor = colors.prisma;
+            } else {
+                nextBtn.style.backgroundColor = colors.white;
+            }
 
-.input-group.success input,
-.input-group.success select,
-.input-group.success textarea {
-    border-bottom: 2px solid #2ecc71;
-}
+            if (cards[prevIndex].classList.contains('card-garden')) {
+                prevBtn.style.backgroundColor = colors.garden;
+            } else if (cards[prevIndex].classList.contains('card-prisma')) {
+                prevBtn.style.backgroundColor = colors.prisma;
+            } else {
+                prevBtn.style.backgroundColor = colors.white;
+            }
+        }
+
+        function showCard(index) {
+            cards.forEach(card => card.classList.remove('active'));
+            cards[index].classList.add('active');
+            updateButtonColors(index);
+        }
+
+        function triggerSlideAnimation(index) {
+            cards.forEach(card => {
+                card.classList.remove('active');
+                card.style.display = 'none';
+            });
+            const newCard = cards[index];
+            newCard.style.display = 'block';
+            void newCard.offsetWidth;
+            newCard.classList.add('active');
+            updateButtonColors(index);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentCard = (currentCard + 1) % cards.length;
+            triggerSlideAnimation(currentCard);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentCard = (currentCard - 1 + cards.length) % cards.length;
+            triggerSlideAnimation(currentCard);
+        });
+
+        const projectSection = document.querySelector('.projects-section');
+        function updateScrollAnimation() {
+            if (!projectSection) return;
+            const rect = projectSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            let progress = (windowHeight - rect.top) / (windowHeight * 0.8);
+            progress = Math.max(0, Math.min(1, progress));
+            projectSection.style.setProperty('--scroll-reveal', progress);
+        }
+
+        window.addEventListener('scroll', updateScrollAnimation);
+        window.addEventListener('resize', updateScrollAnimation);
+        updateScrollAnimation();
+        showCard(0);
+
+
+        /* 3. LÓGICA DE VALIDACIÓN Y ENVÍO */
+        
+        // TU URL DE GOOGLE APPS SCRIPT
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxaEYKIZ9rhR1AJAd95BGNIQZbyVTDGLmzjbL7CtG-ubS-ROtqk3wTF_mAmnFwgLw7MSw/exec';
+        
+        const form = document.getElementById('formulario-contacto');
+        const nombre = document.getElementById('nombre');
+        const email = document.getElementById('email');
+        const telefono = document.getElementById('telefono');
+        const proyecto = document.getElementById('proyecto');
+        const mensaje = document.getElementById('mensaje');
+        const btnEnviar = document.getElementById('btnEnviar');
+
+        // Restricción input teléfono (solo números)
+        telefono.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            let esValido = true;
+
+            // --- VALIDACIONES VISUALES (LETRAS ROJAS) ---
+            
+            // Validar Nombre
+            const regexNombre = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/;
+            if (nombre.value.trim() === '') {
+                mostrarError(nombre, 'El nombre es obligatorio');
+                esValido = false;
+            } else if (!regexNombre.test(nombre.value.trim())) {
+                mostrarError(nombre, 'Solo se permiten letras');
+                esValido = false;
+            } else { mostrarExito(nombre); }
+
+            // Validar Email
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value.trim() === '') {
+                mostrarError(email, 'El correo es obligatorio');
+                esValido = false;
+            } else if (!regexEmail.test(email.value.trim())) {
+                mostrarError(email, 'Ingresa un correo válido');
+                esValido = false;
+            } else { mostrarExito(email); }
+
+            // Validar Teléfono
+            if (telefono.value.trim() === '') {
+                mostrarError(telefono, 'El teléfono es obligatorio');
+                esValido = false;
+            } else if (telefono.value.length !== 10) {
+                mostrarError(telefono, 'Debe tener 10 dígitos');
+                esValido = false;
+            } else { mostrarExito(telefono); }
+
+            // Validar Proyecto
+            if (proyecto.value === '') {
+                mostrarError(proyecto, 'Selecciona un proyecto');
+                esValido = false;
+            } else { mostrarExito(proyecto); }
+
+            // Validar Mensaje
+            if (mensaje.value.trim() === '') {
+                mostrarError(mensaje, 'Escribe un mensaje');
+                esValido = false;
+            } else { mostrarExito(mensaje); }
+
+            // --- SI TODO ES VALIDO, ENVIAR ---
+            if (esValido) {
+                const textoOriginal = btnEnviar.innerText;
+                btnEnviar.innerText = 'Enviando...';
+                btnEnviar.disabled = true;
+
+                const data = new FormData(form);
+                // Asegurar que el proyecto se envía como texto
+                if(proyecto.selectedIndex !== -1) {
+                    data.set('Proyecto', proyecto.options[proyecto.selectedIndex].text);
+                }
+
+                fetch(scriptURL, { method: 'POST', body: data })
+                    .then(response => {
+                        alert('¡Gracias! Hemos recibido tu información.');
+                        form.reset(); // Limpia campos
+                        eliminarClases(); // Quita colores
+                        btnEnviar.innerText = textoOriginal;
+                        btnEnviar.disabled = false;
+                    })
+                    .catch(error => {
+                        alert('Error al enviar. Intenta de nuevo.');
+                        console.error('Error!', error.message);
+                        btnEnviar.innerText = textoOriginal;
+                        btnEnviar.disabled = false;
+                    });
+            }
+        });
+
+        // Funciones auxiliares para mostrar/ocultar errores
+        function mostrarError(input, mensaje) {
+            const inputGroup = input.parentElement;
+            const small = inputGroup.querySelector('small');
+            inputGroup.className = 'input-group error';
+            small.innerText = mensaje;
+        }
+
+        function mostrarExito(input) {
+            const inputGroup = input.parentElement;
+            inputGroup.className = 'input-group success';
+        }
+
+        function eliminarClases() {
+            const groups = document.querySelectorAll('.input-group');
+            groups.forEach(group => group.className = 'input-group');
+        }
+    </script>
+</body>
+</html>
+
+
