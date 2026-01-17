@@ -128,43 +128,38 @@
     <section class="contact">
         <div class="contact-card-dark">
             
-            <form class="contact-form" id="formulario-contacto" novalidate>
+            <form class="contact-form" id="formulario-contacto">
                 <div class="input-group">
                     <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" placeholder="Ej. Juan Pérez">
-                    <small class="error-text"></small>
+                    <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required>
                 </div>
 
                 <div class="input-group">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" placeholder="correo@ejemplo.com">
-                    <small class="error-text"></small>
+                    <input type="email" id="email" name="Email" placeholder="correo@ejemplo.com" required>
                 </div>
 
                 <div class="input-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" placeholder="+52 ...">
-                    <small class="error-text"></small>
+                    <input type="tel" id="telefono" name="Telefono" placeholder="+52 ..." required>
                 </div>
 
                 <div class="input-group">
                     <label for="proyecto">Proyecto de interés</label>
-                    <select id="proyecto">
+                    <select id="proyecto" name="Proyecto" required>
                         <option value="">Selecciona una opción</option>
-                        <option value="zenith">Torre Zenith</option>
-                        <option value="garden">Garden Santa Fe</option>
-                        <option value="prisma">Distrito Prisma</option>
+                        <option value="Torre Zenith">Torre Zenith</option>
+                        <option value="Garden Santa Fe">Garden Santa Fe</option>
+                        <option value="Distrito Prisma">Distrito Prisma</option>
                     </select>
-                    <small class="error-text"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" placeholder="Cuéntanos más sobre lo que buscas"></textarea>
-                    <small class="error-text"></small>
+                    <textarea id="mensaje" name="Mensaje" placeholder="Cuéntanos más sobre lo que buscas" required></textarea>
                 </div>
 
-                <button type="submit" class="btn-submit">Enviar información</button>
+                <button type="submit" class="btn-submit" id="btnEnviar">Enviar información</button>
             </form>
 
             <div class="contact-info">
@@ -217,7 +212,7 @@
     </footer>
 
     <script>
-
+        /* 1. LÓGICA DE VISIÓN/MISIÓN Y ANIMACIONES */
         const aboutBlocks = document.querySelectorAll('.section-block');
         const aboutImages = document.querySelectorAll('.about-img');
         let aboutIndex = 0;
@@ -264,6 +259,7 @@
         if (aboutSection) observer.observe(aboutSection);
 
 
+        /* 2. LÓGICA DEL CARRUSEL (Completo) */
         const cards = document.querySelectorAll('.project-card');
         const nextBtn = document.querySelector('.next-btn');
         const prevBtn = document.querySelector('.prev-btn');
@@ -339,122 +335,53 @@
         updateScrollAnimation();
         showCard(0);
 
+
+        /* 3. LÓGICA DEL FORMULARIO (Simplificada y funcional) */
+        
+        // TU URL DE GOOGLE SCRIPT (Asegúrate que sea la que termina en /exec)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz-uBLQRXeqwSP28M0j4s0BGJK2VCBQjE2JNEVJXXJ_ugYmYAV-kmUrNDVPlTyN1ROrYw/exec';
+        
         const form = document.getElementById('formulario-contacto');
-        const nombre = document.getElementById('nombre');
-        const email = document.getElementById('email');
-        const telefono = document.getElementById('telefono');
-        const proyecto = document.getElementById('proyecto');
-        const mensaje = document.getElementById('mensaje');
+        const btnEnviar = document.getElementById('btnEnviar');
+        const telefonoInput = document.getElementById('telefono');
 
         // Restricción input teléfono (solo números)
-        telefono.addEventListener('input', (e) => {
+        telefonoInput.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
         });
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', e => {
             e.preventDefault();
+            
+            // Cambiar botón a "Enviando..."
+            const textoOriginal = btnEnviar.innerText;
+            btnEnviar.innerText = 'Enviando...';
+            btnEnviar.disabled = true;
 
-            let esValido = true;
+            // Usamos FormData porque es compatible con tu Script de Google
+            const data = new FormData(form);
 
-            // Validar Nombre
-            const regexNombre = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/;
-            if (nombre.value.trim() === '' || !regexNombre.test(nombre.value.trim())) {
-                mostrarError(nombre, 'Ingresa un nombre válido (solo letras)');
-                esValido = false;
-            } else { mostrarExito(nombre); }
+            // Aseguramos que el Proyecto se envíe como texto
+            const proyectoSelect = document.getElementById('proyecto');
+            if(proyectoSelect.selectedIndex !== -1) {
+                // Sobrescribimos el valor para enviar el texto visible
+                data.set('Proyecto', proyectoSelect.options[proyectoSelect.selectedIndex].text);
+            }
 
-            // Validar Email
-            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email.value.trim() === '' || !regexEmail.test(email.value.trim())) {
-                mostrarError(email, 'Ingresa un correo válido');
-                esValido = false;
-            } else { mostrarExito(email); }
-
-            // Validar Teléfono
-            if (telefono.value.trim() === '' || telefono.value.length !== 10) {
-                mostrarError(telefono, 'El teléfono debe tener 10 dígitos');
-                esValido = false;
-            } else { mostrarExito(telefono); }
-
-            // Validar Proyecto
-            if (proyecto.value === '') {
-                mostrarError(proyecto, 'Selecciona un proyecto');
-                esValido = false;
-            } else { mostrarExito(proyecto); }
-
-            // Validar Mensaje
-            if (mensaje.value.trim() === '') {
-                mostrarError(mensaje, 'Escribe un mensaje');
-                esValido = false;
-            } else { mostrarExito(mensaje); }
-
-            // Si todo es válido, enviar
-            if (esValido) {
-                const btnSubmit = document.querySelector('.btn-submit');
-                const textoOriginal = btnSubmit.innerText;
-                btnSubmit.innerText = 'Enviando...';
-                btnSubmit.disabled = true;
-
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbz-uBLQRXeqwSP28M0j4s0BGJK2VCBQjE2JNEVJXXJ_ugYmYAV-kmUrNDVPlTyN1ROrYw/exec';
-                const form = document.getElementById('formulario-contacto');
-                const btnEnviar = document.querySelector('.btn-submit');
-                
-                form.addEventListener('submit', e => {
-                    e.preventDefault();
-                    btnEnviar.innerText = 'Enviando...';
-                    btnEnviar.disabled = true;
-
-                    const datosParaEnviar = {
-                        nombre: document.getElementById('nombre').value,
-                        correo: document.getElementById('email').value,
-                        telefono: document.getElementById('telefono').value,
-                        proyecto: document.getElementById('proyecto').value,
-                        mensaje: document.getElementById('mensaje').value
-                    };
-
-                    fetch(scriptURL, {
-                        method: 'POST',
-                        mode: 'no-cors', 
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(datosParaEnviar)
-                    })
-                        
-                        .then(() => {
-                            alert('¡Éxito! Tus datos se han guardado en la hoja de MAKIA.');
-                            form.reset();
-                            btnEnviar.innerText = 'Enviar información';
-                            btnEnviar.disabled = false;
-                        })
-
-                        .catch(error => {   
-                            console.error('Error!', error.message);
-                            alert('Hubo un error al enviar.');
-                            btnEnviar.innerText = 'Enviar información';
-                            btnEnviar.disabled = false;
-                        });
+            fetch(scriptURL, { method: 'POST', body: data })
+                .then(response => {
+                    alert('¡Gracias! Hemos recibido tu información.');
+                    form.reset(); // Limpia el formulario
+                    btnEnviar.innerText = textoOriginal;
+                    btnEnviar.disabled = false;
+                })
+                .catch(error => {
+                    alert('Error al enviar. Intenta de nuevo.');
+                    console.error('Error!', error.message);
+                    btnEnviar.innerText = textoOriginal;
+                    btnEnviar.disabled = false;
                 });
-
-        function mostrarError(input, mensaje) {
-            const inputGroup = input.parentElement;
-            const small = inputGroup.querySelector('small');
-            inputGroup.className = 'input-group error';
-            small.innerText = mensaje;
-        }
-
-        function mostrarExito(input) {
-            const inputGroup = input.parentElement;
-            inputGroup.className = 'input-group success';
-        }
-
-        function eliminarClases() {
-            const groups = document.querySelectorAll('.input-group');
-            groups.forEach(group => group.className = 'input-group');
-        }
+        });
     </script>
 </body>
-
 </html>
-
-
-
-
