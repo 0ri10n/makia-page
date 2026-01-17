@@ -108,34 +108,100 @@ header {
     align-items: flex-start;
 }
 
-.about-image img {
+.about-image {
+    position: relative;
     width: 100%;
+    height: 450px;
+    overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-.section-block {
-    margin-bottom: 40px;
-    padding-left: 30px;
-    border-left: 3px solid #e0e0e0;
-    transition: all 0.3s ease;
+.about-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
 }
 
-.section-block.active {
-    border-left: 4px solid var(--azul-vibrante);
+.about-img.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.section-block {
+    margin-bottom: 20px;
+    padding-left: 30px;
+    border-left: 3px solid #e0e0e0;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.section-block::after {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 0;
+    width: 3px;
+    height: 0%; 
+    background-color: var(--azul-vibrante);
+    transition: none;
+}
+
+.section-block.active::after {
+    animation: fillBar 7s linear forwards;
+}
+
+@keyframes fillBar {
+    0% { height: 0%; }
+    100% { height: 100%; }
 }
 
 .section-label {
     color: var(--negro);
     font-weight: 700;
     font-size: 1.4rem;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
-.section-label.small {
-    font-size: 1.2rem;
-    color: var(--negro);
-    margin-bottom: 0;
+.section-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s ease-out;
+}
+
+.section-block.active .section-content {
+    grid-template-rows: 1fr;
+}
+
+.content-wrapper {
+    overflow: hidden;
+}
+
+.section-content p {
+    color: #888;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    max-width: 450px;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.5s ease;
+}
+
+.section-block.active .section-content p {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.2s; 
 }
 
 .about-text p {
@@ -146,10 +212,11 @@ header {
 }
 
 .projects-section {
-    padding: 80px 40px;
+    padding: 150px 40px 80px 40px;
     position: relative;
     background-color: var(--gris-fondo);
-    overflow: hidden;
+    z-index: 10;
+    --scroll-reveal: 0;
 }
 
 .carousel-container {
@@ -209,22 +276,50 @@ header {
     }
 }
 
+
 .project-card.active {
     display: block;
-    animation: fadeInUp 0.7s ease-out forwards;
+    animation: switchSlide 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes switchSlide {
+    0% { opacity: 0; transform: scale(0.96) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+.project-card.active .project-content img {
+    transform: scale(calc(1.8 - (var(--scroll-reveal) * 0.8))) translateY(calc(-210px + (var(--scroll-reveal) * 210px)));
+    transform-origin: center top;
+    transition: transform 0.1s linear;
+    will-change: transform;
+    z-index: 2;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.project-card.active .project-info {
+    opacity: var(--scroll-reveal);
+    transform: translateX(calc(50px - (var(--scroll-reveal) * 50px)));
+    transition: opacity 0.1s linear, transform 0.1s linear;
+    z-index: 1;
+}
+
+.project-card.active {
+    background-color: transparent; 
+}
+
+.project-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 20px;
+    z-index: 0;
+    opacity: var(--scroll-reveal);
+    transition: opacity 0.1s linear;
+}
+
+.project-card.card-white.active::before { background-color: var(--blanco); }
+.project-card.card-garden.active::before { background-color: var(--verde-garden); }
+.project-card.card-prisma.active::before { background-color: var(--morado-prisma); }
 
 .project-content {
     display: flex;

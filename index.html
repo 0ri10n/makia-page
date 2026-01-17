@@ -37,21 +37,42 @@
 <section id="conocenos" class="about">
     <div class="about-container">
         <div class="about-image">
-            <img src="aboutuspage2.jpg" alt="Edificio Makia">
+            <img src="aboutuspage2.jpg" class="about-img active" alt="Sobre nosotros">
+            <img src="mision.jpg" class="about-img" alt="Misión">
+            <img src="vision.jpg" class="about-img" alt="Visión">
         </div>
         <div class="about-text">
             <div class="section-block active">
                 <div class="section-label">Sobre nosotros</div>
-                <p>MAKIA es una inmobiliaria enfocada en el desarrollo y gestión de proyectos residenciales y
-                    comerciales. Nos caracterizamos por crear propuestas bien planeadas, funcionales y orientadas a
-                    generar valor a largo plazo.</p>
+                <div class="section-content">
+                    <div class="content-wrapper">
+                        <p>MAKIA es una inmobiliaria enfocada en el desarrollo y gestión de proyectos residenciales y
+                            comerciales. Nos caracterizamos por crear propuestas bien planeadas, funcionales y orientadas a
+                            generar valor a largo plazo.</p>
+                    </div>
+                </div>
             </div>
 
             <div class="section-block">
-                <div class="section-label small">Misión</div>
+                <div class="section-label">Misión</div>
+                <div class="section-content">
+                    <div class="content-wrapper">
+                        <p>Desarrollar espacios inmobiliarios innovadores y sostenibles que eleven la calidad de vida de
+                            nuestros usuarios, garantizando plusvalía para nuestros inversores y armonía con el entorno urbano.
+                        </p>
+                    </div>
+                </div>
             </div>
+
             <div class="section-block">
-                <div class="section-label small">Visión</div>
+                <div class="section-label">Visión</div>
+                <div class="section-content">
+                    <div class="content-wrapper">
+                        <p>Ser el referente líder en el sector inmobiliario nacional, reconocidos por transformar el horizonte
+                            de la ciudad con proyectos icónicos que combinan lujo, funcionalidad y responsabilidad ambiental.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -182,23 +203,72 @@
 </footer>
 
 <script>
+const aboutBlocks = document.querySelectorAll('.section-block');
+    const aboutImages = document.querySelectorAll('.about-img');
+    let aboutIndex = 0;
+    let aboutInterval;
+
+    function switchAbout(index) {
+        aboutBlocks.forEach(block => {
+            block.classList.remove('active');
+            
+            const bar = block;
+            void bar.offsetWidth; 
+        });
+
+        aboutImages.forEach(img => img.classList.remove('active'));
+        
+        aboutBlocks[index].classList.add('active');
+        aboutImages[index].classList.add('active');
+
+        aboutIndex = index;
+    }
+
+    function startAboutTimer() {
+        if (aboutInterval) clearInterval(aboutInterval);
+        aboutInterval = setInterval(() => {
+            const nextIndex = (aboutIndex + 1) % aboutBlocks.length;
+            switchAbout(nextIndex);
+        }, 7000);
+    }
+
+    aboutBlocks.forEach((block, i) => {
+        block.addEventListener('click', () => {
+            clearInterval(aboutInterval);
+            switchAbout(i);
+            startAboutTimer();
+        });
+    });
+
+    const aboutSection = document.querySelector('.about');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                switchAbout(0);
+                startAboutTimer();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    if(aboutSection) observer.observe(aboutSection);
+
+
     const cards = document.querySelectorAll('.project-card');
     const nextBtn = document.querySelector('.next-btn');
     const prevBtn = document.querySelector('.prev-btn');
     let currentCard = 0;
 
-    // Definimos los colores de los botones basados en tu paleta
     const colors = {
-        white: '#D1F2EB',   // Color para cuando la tarjeta blanca está activa
-        garden: '#CEEAD5',  // Color verde suave
-        prisma: '#D4BBFF'   // Color lavanda/morado suave
+        white: '#D1F2EB',
+        garden: '#CEEAD5',
+        prisma: '#D4BBFF'
     };
 
     function updateButtonColors(index) {
         const nextIndex = (index + 1) % cards.length;
         const prevIndex = (index - 1 + cards.length) % cards.length;
 
-        // El botón "siguiente" toma el color de la tarjeta que viene
         if (cards[nextIndex].classList.contains('card-garden')) {
             nextBtn.style.backgroundColor = colors.garden;
         } else if (cards[nextIndex].classList.contains('card-prisma')) {
@@ -207,7 +277,6 @@
             nextBtn.style.backgroundColor = colors.white;
         }
 
-        // El botón "atrás" toma el color de la tarjeta anterior
         if (cards[prevIndex].classList.contains('card-garden')) {
             prevBtn.style.backgroundColor = colors.garden;
         } else if (cards[prevIndex].classList.contains('card-prisma')) {
@@ -223,17 +292,51 @@
         updateButtonColors(index);
     }
 
+    function triggerSlideAnimation(index) {
+        cards.forEach(card => {
+            card.classList.remove('active');
+            card.style.display = 'none';
+        });
+        
+        const newCard = cards[index];
+        newCard.style.display = 'block';
+        
+        void newCard.offsetWidth;
+        
+        newCard.classList.add('active');
+        updateButtonColors(index);
+    }
+
     nextBtn.addEventListener('click', () => {
         currentCard = (currentCard + 1) % cards.length;
-        showCard(currentCard);
+        triggerSlideAnimation(currentCard);
     });
 
     prevBtn.addEventListener('click', () => {
         currentCard = (currentCard - 1 + cards.length) % cards.length;
-        showCard(currentCard);
+        triggerSlideAnimation(currentCard);
     });
 
-    // Inicializar colores al cargar
+    const projectSection = document.querySelector('.projects-section');
+    
+    function updateScrollAnimation() {
+        if (!projectSection) return;
+        
+        const rect = projectSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        let progress = (windowHeight - rect.top) / (windowHeight * 0.8);
+        
+        progress = Math.max(0, Math.min(1, progress));
+        
+        projectSection.style.setProperty('--scroll-reveal', progress);
+    }
+
+    window.addEventListener('scroll', updateScrollAnimation);
+    window.addEventListener('resize', updateScrollAnimation);
+    
+    updateScrollAnimation();
+
     showCard(0);
 </script>
 </body>
