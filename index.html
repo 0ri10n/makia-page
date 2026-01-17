@@ -128,35 +128,39 @@
     <section class="contact">
         <div class="contact-card-dark">
             
-            <form class="contact-form" id="formulario-contacto">
+            <form class="contact-form" id="formulario-contacto" novalidate>
                 <div class="input-group">
                     <label for="nombre">Nombre completo</label>
-                    <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez" required>
-                </div>
+                    <input type="text" id="nombre" name="Nombre" placeholder="Ej. Juan Pérez">
+                    <small class="error-text"></small> </div>
 
                 <div class="input-group">
                     <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="Email" placeholder="correo@ejemplo.com" required>
+                    <input type="email" id="email" name="Email" placeholder="correo@ejemplo.com">
+                    <small class="error-text"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="Telefono" placeholder="+52 ..." required>
+                    <input type="tel" id="telefono" name="Telefono" placeholder="+52 ...">
+                    <small class="error-text"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="proyecto">Proyecto de interés</label>
-                    <select id="proyecto" name="Proyecto" required>
+                    <select id="proyecto" name="Proyecto">
                         <option value="">Selecciona una opción</option>
                         <option value="Torre Zenith">Torre Zenith</option>
                         <option value="Garden Santa Fe">Garden Santa Fe</option>
                         <option value="Distrito Prisma">Distrito Prisma</option>
                     </select>
+                    <small class="error-text"></small>
                 </div>
 
                 <div class="input-group">
                     <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="Mensaje" placeholder="Cuéntanos más sobre lo que buscas" required></textarea>
+                    <textarea id="mensaje" name="Mensaje" placeholder="Cuéntanos más sobre lo que buscas"></textarea>
+                    <small class="error-text"></small>
                 </div>
 
                 <button type="submit" class="btn-submit" id="btnEnviar">Enviar información</button>
@@ -259,7 +263,7 @@
         if (aboutSection) observer.observe(aboutSection);
 
 
-        /* 2. LÓGICA DEL CARRUSEL (Completo) */
+        /* 2. LÓGICA DEL CARRUSEL */
         const cards = document.querySelectorAll('.project-card');
         const nextBtn = document.querySelector('.next-btn');
         const prevBtn = document.querySelector('.prev-btn');
@@ -336,52 +340,118 @@
         showCard(0);
 
 
-        /* 3. LÓGICA DEL FORMULARIO (Simplificada y funcional) */
+        /* 3. LÓGICA DE VALIDACIÓN Y ENVÍO */
         
-        // TU URL DE GOOGLE SCRIPT (Asegúrate que sea la que termina en /exec)
+        // TU URL DE GOOGLE APPS SCRIPT
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxaEYKIZ9rhR1AJAd95BGNIQZbyVTDGLmzjbL7CtG-ubS-ROtqk3wTF_mAmnFwgLw7MSw/exec';
         
         const form = document.getElementById('formulario-contacto');
+        const nombre = document.getElementById('nombre');
+        const email = document.getElementById('email');
+        const telefono = document.getElementById('telefono');
+        const proyecto = document.getElementById('proyecto');
+        const mensaje = document.getElementById('mensaje');
         const btnEnviar = document.getElementById('btnEnviar');
-        const telefonoInput = document.getElementById('telefono');
 
         // Restricción input teléfono (solo números)
-        telefonoInput.addEventListener('input', (e) => {
+        telefono.addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, '');
         });
 
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            let esValido = true;
+
+            // --- VALIDACIONES VISUALES (LETRAS ROJAS) ---
             
-            // Cambiar botón a "Enviando..."
-            const textoOriginal = btnEnviar.innerText;
-            btnEnviar.innerText = 'Enviando...';
-            btnEnviar.disabled = true;
+            // Validar Nombre
+            const regexNombre = /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/;
+            if (nombre.value.trim() === '') {
+                mostrarError(nombre, 'El nombre es obligatorio');
+                esValido = false;
+            } else if (!regexNombre.test(nombre.value.trim())) {
+                mostrarError(nombre, 'Solo se permiten letras');
+                esValido = false;
+            } else { mostrarExito(nombre); }
 
-            // Usamos FormData porque es compatible con tu Script de Google
-            const data = new FormData(form);
+            // Validar Email
+            const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email.value.trim() === '') {
+                mostrarError(email, 'El correo es obligatorio');
+                esValido = false;
+            } else if (!regexEmail.test(email.value.trim())) {
+                mostrarError(email, 'Ingresa un correo válido');
+                esValido = false;
+            } else { mostrarExito(email); }
 
-            // Aseguramos que el Proyecto se envíe como texto
-            const proyectoSelect = document.getElementById('proyecto');
-            if(proyectoSelect.selectedIndex !== -1) {
-                // Sobrescribimos el valor para enviar el texto visible
-                data.set('Proyecto', proyectoSelect.options[proyectoSelect.selectedIndex].text);
+            // Validar Teléfono
+            if (telefono.value.trim() === '') {
+                mostrarError(telefono, 'El teléfono es obligatorio');
+                esValido = false;
+            } else if (telefono.value.length !== 10) {
+                mostrarError(telefono, 'Debe tener 10 dígitos');
+                esValido = false;
+            } else { mostrarExito(telefono); }
+
+            // Validar Proyecto
+            if (proyecto.value === '') {
+                mostrarError(proyecto, 'Selecciona un proyecto');
+                esValido = false;
+            } else { mostrarExito(proyecto); }
+
+            // Validar Mensaje
+            if (mensaje.value.trim() === '') {
+                mostrarError(mensaje, 'Escribe un mensaje');
+                esValido = false;
+            } else { mostrarExito(mensaje); }
+
+            // --- SI TODO ES VALIDO, ENVIAR ---
+            if (esValido) {
+                const textoOriginal = btnEnviar.innerText;
+                btnEnviar.innerText = 'Enviando...';
+                btnEnviar.disabled = true;
+
+                const data = new FormData(form);
+                // Asegurar que el proyecto se envía como texto
+                if(proyecto.selectedIndex !== -1) {
+                    data.set('Proyecto', proyecto.options[proyecto.selectedIndex].text);
+                }
+
+                fetch(scriptURL, { method: 'POST', body: data })
+                    .then(response => {
+                        alert('¡Gracias! Hemos recibido tu información.');
+                        form.reset(); // Limpia campos
+                        eliminarClases(); // Quita colores
+                        btnEnviar.innerText = textoOriginal;
+                        btnEnviar.disabled = false;
+                    })
+                    .catch(error => {
+                        alert('Error al enviar. Intenta de nuevo.');
+                        console.error('Error!', error.message);
+                        btnEnviar.innerText = textoOriginal;
+                        btnEnviar.disabled = false;
+                    });
             }
-
-            fetch(scriptURL, { method: 'POST', body: data })
-                .then(response => {
-                    alert('¡Gracias! Hemos recibido tu información.');
-                    form.reset(); // Limpia el formulario
-                    btnEnviar.innerText = textoOriginal;
-                    btnEnviar.disabled = false;
-                })
-                .catch(error => {
-                    alert('Error al enviar. Intenta de nuevo.');
-                    console.error('Error!', error.message);
-                    btnEnviar.innerText = textoOriginal;
-                    btnEnviar.disabled = false;
-                });
         });
+
+        // Funciones auxiliares para mostrar/ocultar errores
+        function mostrarError(input, mensaje) {
+            const inputGroup = input.parentElement;
+            const small = inputGroup.querySelector('small');
+            inputGroup.className = 'input-group error';
+            small.innerText = mensaje;
+        }
+
+        function mostrarExito(input) {
+            const inputGroup = input.parentElement;
+            inputGroup.className = 'input-group success';
+        }
+
+        function eliminarClases() {
+            const groups = document.querySelectorAll('.input-group');
+            groups.forEach(group => group.className = 'input-group');
+        }
     </script>
 </body>
 </html>
