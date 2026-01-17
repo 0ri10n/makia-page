@@ -217,9 +217,7 @@
     </footer>
 
     <script>
-        /* ----------------------------------------------------
-           1. LÓGICA DEL CARRUSEL Y ANIMACIONES
-           ---------------------------------------------------- */
+
         const aboutBlocks = document.querySelectorAll('.section-block');
         const aboutImages = document.querySelectorAll('.about-img');
         let aboutIndex = 0;
@@ -341,10 +339,6 @@
         updateScrollAnimation();
         showCard(0);
 
-
-        /* ----------------------------------------------------
-           2. LÓGICA DE VALIDACIÓN Y ENVÍO A GOOGLE SHEETS
-           ---------------------------------------------------- */
         const form = document.getElementById('formulario-contacto');
         const nombre = document.getElementById('nombre');
         const email = document.getElementById('email');
@@ -402,30 +396,43 @@
                 btnSubmit.disabled = true;
 
                 const scriptURL = 'https://script.google.com/macros/s/AKfycbz-uBLQRXeqwSP28M0j4s0BGJK2VCBQjE2JNEVJXXJ_ugYmYAV-kmUrNDVPlTyN1ROrYw/exec';
+                const form = document.getElementById('formulario-contacto');
+                const btnEnviar = document.querySelector('.btn-submit');
+                
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    btnEnviar.innerText = 'Enviando...';
+                    btnEnviar.disabled = true;
 
-                const data = new FormData();
-                data.append('Nombre', nombre.value);
-                data.append('Email', email.value);
-                data.append('Telefono', telefono.value);
-                data.append('Proyecto', proyecto.options[proyecto.selectedIndex].text);
-                data.append('Mensaje', mensaje.value);
+                    const datosParaEnviar = {
+                        nombre: document.getElementById('nombre').value,
+                        correo: document.getElementById('email').value,
+                        telefono: document.getElementById('telefono').value,
+                        proyecto: document.getElementById('proyecto').value,
+                        mensaje: document.getElementById('mensaje').value
+                    };
 
-                fetch(scriptURL, { method: 'POST', body: data })
-                .then(response => {
-                    alert('¡Gracias! Hemos recibido tu información.');
-                    form.reset(); 
-                    eliminarClases(); 
-                    btnSubmit.innerText = textoOriginal;
-                    btnSubmit.disabled = false;
-                })
-                    .catch(error => {
-                        alert('Error al enviar. Intenta de nuevo.');
-                        console.error('Error!', error.message);
-                        btnSubmit.innerText = textoOriginal;
-                        btnSubmit.disabled = false;
-                    });
-            }
-        });
+                    fetch(scriptURL, {
+                        method: 'POST',
+                        mode: 'no-cors', 
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(datosParaEnviar)
+                    })
+                        
+                        .then(() => {
+                            alert('¡Éxito! Tus datos se han guardado en la hoja de MAKIA.');
+                            form.reset();
+                            btnEnviar.innerText = 'Enviar información';
+                            btnEnviar.disabled = false;
+                        })
+
+                        .catch(error => {   
+                            console.error('Error!', error.message);
+                            alert('Hubo un error al enviar.');
+                            btnEnviar.innerText = 'Enviar información';
+                            btnEnviar.disabled = false;
+                        });
+                });
 
         function mostrarError(input, mensaje) {
             const inputGroup = input.parentElement;
@@ -447,6 +454,7 @@
 </body>
 
 </html>
+
 
 
 
