@@ -185,7 +185,7 @@ header {
 }
 
 .section-content p {
-    color: #888;
+    color: var(--negro);
     line-height: 1.6;
     font-size: 1.05rem;
     max-width: 450px;
@@ -205,7 +205,7 @@ header {
 }
 
 .about-text p {
-    color: #888;
+    color: var(--negro);
     line-height: 1.6;
     font-size: 1.05rem;
     max-width: 450px;
@@ -277,6 +277,7 @@ header {
 }
 
 
+
 .project-card.active {
     display: block;
     animation: switchSlide 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -346,7 +347,7 @@ header {
 .project-info p {
     font-size: 1rem;
     line-height: 1.6;
-    color: #888;
+    color: var(--negro);
     margin: 0;
     text-align: left;
 }
@@ -409,8 +410,8 @@ header {
     border-radius: 25px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    padding: 60px;
-    gap: 60px;
+    padding: 40px 60px; /* Bajamos de 60px a 40px verticalmente */
+    gap: 40px;          /* Reducimos el espacio entre info y formulario */
     color: white;
     max-width: 1200px;
     margin: 0 auto;
@@ -419,27 +420,26 @@ header {
 
 .contact-form {
     background: white;
-    padding: 40px;
+    padding: 30px;      /* Bajamos de 40px a 30px */
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;          /* Reducimos de 25px a 15px para acercar los campos */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Ajustamos el grupo de entrada para usar menos espacio */
 .input-group {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-bottom: 5px; /* Reducimos el espacio de validación si no se usa */
 }
 
+/* Reducimos el margen inferior de las etiquetas */
 .input-group label {
-    color: #333;
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 0.75rem;
+    margin-bottom: 2px; /* Etiqueta más pegada al input */
 }
 
 .contact-form input,
@@ -456,6 +456,10 @@ header {
     outline: none;
     transition: border-color 0.3s ease;
 }
+/* Compactamos el botón y el área de mensaje */
+.contact-form textarea {
+    min-height: 60px;   /* Bajamos de 80px a 60px */
+}
 
 .contact-form input:focus,
 .contact-form textarea:focus {
@@ -470,7 +474,7 @@ header {
 .btn-submit {
     background-color: var(--negro);
     color: white;
-    padding: 16px 32px;
+    padding: 12px 32px;
     border: none;
     border-radius: 10px;
     font-size: 14px;
@@ -478,7 +482,7 @@ header {
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .btn-submit:hover {
@@ -503,9 +507,9 @@ header {
     background-color: var(--azul-claro);
     padding: 25px 80px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 180px;
 }
 
 .partners-bar img {
@@ -514,21 +518,39 @@ header {
     object-fit: contain;
     opacity: 0.8;
 }
+/* Reduce específicamente el logo de DIAM */
+.partners-bar img[alt="Grupo DIAM"] {
+    max-height: 22px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    width: auto;
+}
+.partners-bar img[alt="CEMEX"] {
+    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    width: auto;
+}
+.partners-bar img[alt="HOLCIM México"] {
+    max-height: 30px; /* Ajusta este valor (antes era 35px) hasta que se vea equilibrado */
+    width: auto;
+}
 
 .main-footer {
     background-color: var(--negro);
     color: var(--blanco);
-    padding: 30px 60px;
+    padding: 15px 60px;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    gap: 30px;
+    gap: 0;
+}
+
+/* Contenedor del logo */
+.footer-logo {
+    display: flex;
+    justify-content: flex-start; /* Alinea el logo al extremo izquierdo */
 }
 
 .footer-logo-img {
@@ -538,12 +560,12 @@ header {
 
 .footer-info {
     text-align: center;
-    flex-grow: 1;
+    padding: 0 20px;
 }
 
 .policy-links {
     font-size: 13px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .copyright {
@@ -554,9 +576,9 @@ header {
 
 .footer-socials {
     display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px 30px; 
-    align-items: center;
+    grid-template-columns: auto auto; 
+    gap: 10px 30px; 
+    justify-self: flex-end;
 }
 
 .social-link {
@@ -632,15 +654,55 @@ header {
         text-align: center;
     }
 
+    /* --- Patrocinadores en Móvil --- */
     .partners-bar {
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 20px;
+        padding: 40px 20px;
+        display: grid; 
+        /* Creamos 2 columnas para que los logos no se vean diminutos */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 30px; 
+        justify-items: center;
+    }
+
+    .partners-bar img {
+        max-height: 25px; /* Reducimos altura para que quepan bien */
+        width: auto;
+    }
+
+    /* --- Footer en Móvil --- */
+    .main-footer {
+        padding: 30px 20px;
     }
 
     .footer-container {
-        flex-direction: column;
-        gap: 20px;
+        display: flex;
+        flex-direction: column; /* Apilamos los elementos verticalmente */
+        align-items: center;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .footer-logo {
+        justify-content: center; /* Logo centrado */
+    }
+
+    .footer-info {
+        padding: 0;
+        order: 2; /* Bajamos el texto legal debajo del logo */
+    }
+
+    .footer-socials {
+        display: flex; /* En móvil es mejor flex para centrar */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        order: 3;
+        width: 100%;
+    }
+
+    .social-link {
+        justify-content: center; /* Centramos el icono + texto */
+        width: auto; /* Que no ocupe todo el ancho para que quepan varios */
     }
 }
 /* ¡AQUÍ TERMINA LA CONFIGURACIÓN DE CELULARES! */
