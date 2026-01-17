@@ -641,4 +641,41 @@ header {
         flex-direction: column;
         gap: 20px;
     }
+    
+    .input-group {
+        position: relative;
+        padding-bottom: 25px; 
+    }
+    
+    .input-group small.error-text {
+        color: #e74c3c; 
+        font-size: 12px;
+        font-weight: 600;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s ease;
+    }
+
+
+    .input-group.error input,
+    .input-group.error select,
+    .input-group.error textarea {
+        border-bottom: 2px solid #e74c3c; 
+    }
+
+    .input-group.error small.error-text { 
+        visibility: visible;   
+        opacity: 1;
+    }
+
+    .input-group.success input,
+    .input-group.success select,
+    .input-group.success textarea {
+        border-bottom: 2px solid #2ecc71;
+    }
+    
 }
+
