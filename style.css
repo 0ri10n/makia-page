@@ -58,14 +58,17 @@ header {
 @media (max-width: 1200px) {
     .hero-card {
         padding-left: 40px;
-        height: auto; 
-        min-height: 450px;
-        padding-right: 20px;
+        height: 450px; 
     }
-    
-    .text-block {
-        font-size: clamp(2rem, 6vw, 3.5rem); 
-    }
+}
+
+.text-block {
+    display: table;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    padding: 5px 20px;
+    margin-bottom: 8px;
+    color: var(--blanco);
 }
 
 .black {
@@ -844,24 +847,5 @@ header {
     .social-link {
         justify-content: center;
         width: auto; 
-    }
-}
-
-/* CORRECCIÓN PARA TABLETS */
-@media (min-width: 769px) and (max-width: 1199px) {
-    .hero-card {
-        height: auto;
-        min-height: 450px;
-        padding-right: 40px; 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    .text-block {
-        font-size: clamp(2rem, 6vw, 3.5rem);
-        margin-bottom: 5px;
-        padding: 5px 15px;
     }
 }
