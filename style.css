@@ -416,7 +416,7 @@ header {
 }
 
 .contact-card-dark {
-    background: #EA4335;
+    background: #CC5050;
     border-radius: 25px;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -849,4 +849,5 @@ header {
         width: auto; 
     }
 }
+
 
