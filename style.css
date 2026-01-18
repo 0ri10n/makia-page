@@ -646,21 +646,19 @@ header {
     border-bottom: 2px solid #2ecc71;
 }
 
+/* LÓGICA DE IMÁGENES Y TEXTO */
 .about-image, .image-container {
     position: relative;
     width: 100%;
     height: 450px; 
-    overflow: hidden;
+    overflow: hidden; 
     border-radius: 12px;
 }
 
 .about-image .image-container, 
 .about-figure { 
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; 
     transition: opacity 0.8s ease-in-out;
     z-index: 1;
@@ -676,7 +674,8 @@ header {
 .about-img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain; 
+    object-fit: cover; 
+    object-position: center;
     display: block !important;
 }
 
@@ -685,13 +684,17 @@ header {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.95));
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.6) 50%, transparent 100%);
     color: white !important;
     padding: 20px;
-    font-size: 0.85rem;
+    
+    font-size: clamp(0.75rem, 2vw, 0.9rem); 
+    line-height: 1.3;
+    max-height: 60%; 
+    overflow-y: auto; 
     z-index: 10;
     margin: 0;
-    pointer-events: none; 
+    pointer-events: auto; 
 }
 
 .card-prisma .image-description {
@@ -723,72 +726,76 @@ header {
 @media (max-width: 768px) {
     
     header {
-        padding: 20px;
-        justify-content: center;
+        padding: 15px; 
+        justify-content: space-between;
+    }
+
+    .hero-container {
+        padding: 0 15px 30px 15px; 
     }
 
     .hero-card {
-        padding-left: 20px;
+        padding-left: 0; 
         justify-content: center;
-        height: 400px;
+        text-align: center; 
+        height: 380px; 
+        background-position: center; 
+    }
+    
+    .text-block {
+        font-size: 2.2rem; 
+        margin: 0 auto 8px auto;
     }
 
     .about-container {
         grid-template-columns: 1fr;
+        gap: 40px;
     }
-
-
+    
     .about-image, .image-container {
-        height: 300px !important; 
+        height: 320px !important; 
     }
 
     .contact-card-dark {
         grid-template-columns: 1fr;
-        padding: 40px 25px;
-        gap: 40px;
+        padding: 30px 20px;
+        gap: 30px;
     }
 
     .contact-form { order: 2; }
     .contact-info { order: 1; text-align: center; }
 
-
+    /* PATROCINADORES EN MÓVIL */
     .partners-bar {
-        padding: 40px 20px;
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 30px; 
-        justify-items: center;
+        padding: 20px 10px; 
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 15px 25px; 
     }
 
     .partners-bar img {
-        max-height: 25px; 
-        width: auto;
+        max-height: 20px !important; 
+        opacity: 0.9;
+        flex-shrink: 0; 
     }
 
-
-    .main-footer {
-        padding: 30px 20px;
-    }
+    .main-footer { padding: 30px 15px; }
 
     .footer-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        gap: 25px;
+        gap: 20px;
     }
-
-    .footer-logo { justify-content: center; }
-    .footer-info { padding: 0; order: 2; }
 
     .footer-socials {
         display: flex; 
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
-        order: 3;
         width: 100%;
-        margin-top: 0; 
+        margin-top: 10px; 
     }
 
     .social-link {
@@ -796,3 +803,4 @@ header {
         width: auto; 
     }
 }
+
