@@ -756,6 +756,7 @@ header {
     opacity: 0; 
     transition: opacity 0.8s ease-in-out;
     z-index: 1;
+    background-color: #000; 
 }
 
 .about-image .image-container.active,
@@ -767,7 +768,7 @@ header {
 .about-img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover;
+    object-fit: contain; 
     display: block !important;
 }
 
@@ -776,7 +777,7 @@ header {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    background: linear-gradient(transparent, rgba(0,0,0,0.95));
     color: white !important;
     padding: 20px;
     font-size: 0.85rem;
