@@ -354,31 +354,12 @@ header {
     text-align: left;
 }
 
-.project-content figure {
-    display: block;
-    position: relative; 
-    width: 100%;
-    height: 350px; 
-    margin: 0;
-    border-radius: 20px;
-    overflow: hidden;
-    background-color: #000; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
 .project-content img {
     width: 100%;
-    height: 100%;
-    object-fit: contain; 
-    display: block;
-    border-radius: 0; 
-    box-shadow: none; 
-}
-
-@media (max-width: 768px) {
-    .project-content figure {
-        height: 250px; 
-    }
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .card-white {
@@ -822,5 +803,3 @@ header {
         width: auto; 
     }
 }
-
-
