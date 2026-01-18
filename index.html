@@ -301,11 +301,19 @@ if (aboutSection) observer.observe(aboutSection);
         const prevBtn = document.querySelector('.prev-btn');
         let currentCard = 0;
 
+        // Colores de los botones (coinciden con las tarjetas)
         const colors = {
             white: '#D1F2EB',
-            garden: '#CEEAD5',
+            garden: '#f0fdf4',
             prisma: '#D4BBFF'
         };
+
+        // Colores de FONDO de la sección (Sutiles pero distinguibles)
+        const sectionBackgrounds = [
+            '#d6eaf8', // Azul (Torre Zenith)
+            '#e2f7e6', // Verde (Garden Santa Fe) - Más notorio
+            '#f2e6fa'  // Morado (Distrito Prisma) - Más notorio
+        ];
 
         function updateButtonColors(index) {
             const nextIndex = (index + 1) % cards.length;
@@ -328,10 +336,20 @@ if (aboutSection) observer.observe(aboutSection);
             }
         }
 
+        // Función corregida para forzar el cambio de color de fondo
+        function updateSectionBackground(index) {
+            // Buscamos la sección aquí mismo para asegurar que existe
+            const sectionToColor = document.querySelector('.projects-section');
+            if (sectionToColor) {
+                sectionToColor.style.backgroundColor = sectionBackgrounds[index];
+            }
+        }
+
         function showCard(index) {
             cards.forEach(card => card.classList.remove('active'));
             cards[index].classList.add('active');
             updateButtonColors(index);
+            updateSectionBackground(index); // Cambia el fondo
         }
 
         function triggerSlideAnimation(index) {
@@ -344,6 +362,7 @@ if (aboutSection) observer.observe(aboutSection);
             void newCard.offsetWidth;
             newCard.classList.add('active');
             updateButtonColors(index);
+            updateSectionBackground(index); // Cambia el fondo
         }
 
         nextBtn.addEventListener('click', () => {
@@ -369,8 +388,9 @@ if (aboutSection) observer.observe(aboutSection);
         window.addEventListener('scroll', updateScrollAnimation);
         window.addEventListener('resize', updateScrollAnimation);
         updateScrollAnimation();
+        
+        // Inicializar
         showCard(0);
-
 
         /* 3. LÓGICA DE VALIDACIÓN Y ENVÍO */
         
@@ -484,8 +504,23 @@ if (aboutSection) observer.observe(aboutSection);
             const groups = document.querySelectorAll('.input-group');
             groups.forEach(group => group.className = 'input-group');
         }
+
+        //Animacion de la tarjeta de contacto
+        const contactSection = document.querySelector('.contact');
+        const contactCard = document.querySelector('.contact-card-dark');
+
+        const contactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    contactCard.classList.add('active');
+                } else {
+                    contactCard.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        if (contactSection) contactObserver.observe(contactSection);
     </script>
 </body>
 </html>
-
 
